@@ -57,7 +57,7 @@ const ProductsDetail = () => {
         }
       });
     }
-  }, [id]);
+  }, [dispatch, id]);
 
   const contentStyle = {
     width: "100%",

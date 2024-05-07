@@ -96,13 +96,13 @@ const ContentsComponent = () => {
       category: selectedCategory,
       content: contentCkeditor,
     });
-  }, [title, image, selectedCategory, contentCkeditor]);
+  }, [title, image, selectedCategory, contentCkeditor, form]);
 
   useEffect(() => {
     dispatch(getAllContents()).then((action) => {
       setContents(action.payload);
     });
-  }, []);
+  }, [dispatch]);
 
   const handleUpdateContent = (id) => {
     const updatingData = contents.find((element) => element.id === id);

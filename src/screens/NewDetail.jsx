@@ -21,7 +21,7 @@ const NewDetail = () => {
         }
       });
     }
-  }, [id]);
+  }, [dispatch, id]);
 
   const formatDate = (createdAt) => {
     const date = new Date(createdAt);

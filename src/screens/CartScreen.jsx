@@ -54,7 +54,8 @@ const CartScreen = () => {
   const [totalCost, setTotalCost] = useState(0);
 
   useEffect(() => {
-    if (product && product.length === 0) {
+    const isEmptyProduct = product && product.length === 0;
+    if (isEmptyProduct) {
       const timer = setTimeout(() => {
         navigate("/products/all");
       }, 2000);
@@ -62,7 +63,7 @@ const CartScreen = () => {
         clearTimeout(timer);
       };
     }
-  }, [product && product.length]);
+  }, [navigate, product]);
 
   useEffect(() => {
     if (auth && auth.currentUser && Array.isArray(auth.currentUser.product)) {
@@ -75,7 +76,7 @@ const CartScreen = () => {
       );
       setTotalCost(totalCost);
     } else setTotalCost(0);
-  }, [selectedRowKeys]);
+  }, [auth, selectedRowKeys]);
 
   const handleRemoveItem = (index) => {
     const updatedCart = [...auth.currentUser.product];

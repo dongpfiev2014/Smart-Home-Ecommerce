@@ -87,20 +87,28 @@ const ProductsScreen = () => {
         setIsLoading(false);
       }
     });
-  }, []);
+  }, [dispatch]);
 
-  const filteredProducts = products.filter((element) => {
-    const brandMatch =
-      selectedBrands.length === 0 || selectedBrands.includes(element.brand);
-    const materialMatch =
-      selectedMaterials.length === 0 ||
-      selectedMaterials.includes(element.material);
-    const seriesMatch =
-      selectedSeries.length === 0 || selectedSeries.includes(element.series);
-    return brandMatch && materialMatch && seriesMatch;
-  });
+  // Lọc products nếu có ít nhất một phần tử
+  const filteredProducts =
+    Array.isArray(products) && products.length > 0
+      ? products.filter((element) => {
+          const brandMatch =
+            selectedBrands.length === 0 ||
+            selectedBrands.includes(element.brand);
+          const materialMatch =
+            selectedMaterials.length === 0 ||
+            selectedMaterials.includes(element.material);
+          const seriesMatch =
+            selectedSeries.length === 0 ||
+            selectedSeries.includes(element.series);
+          return brandMatch && materialMatch && seriesMatch;
+        })
+      : [];
 
-  const sortedFilteredProducts = [...filteredProducts];
+  // Sử dụng filteredProducts ở đây
+
+  const sortedFilteredProducts = products.length > 0 && [...filteredProducts];
 
   if (lowToHighChecked) {
     sortedFilteredProducts.sort((a, b) => {

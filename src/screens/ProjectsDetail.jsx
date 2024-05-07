@@ -49,7 +49,7 @@ const ProjectsDetail = () => {
         }
       });
     }
-  }, [id]);
+  }, [dispatch, id]);
 
   const contentStyle = {
     width: "100%",

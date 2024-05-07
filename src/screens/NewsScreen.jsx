@@ -33,7 +33,7 @@ const NewsScreen = () => {
         setIsLoading(false);
       }
     });
-  }, []);
+  }, [dispatch]);
 
   const items = [
     {
@@ -42,6 +42,7 @@ const NewsScreen = () => {
       icon: <MdOutlineDensitySmall />,
       children:
         contents &&
+        Array.isArray(contents) &&
         renderListProducts(
           contents.filter(
             (element) => element.category && element.category.includes("news")
@@ -54,6 +55,7 @@ const NewsScreen = () => {
       icon: <FaShopify />,
       children:
         contents &&
+        Array.isArray(contents) &&
         renderListProducts(
           contents.filter(
             (element) => element.category && element.category.includes("market")
@@ -66,6 +68,7 @@ const NewsScreen = () => {
       icon: <MdAddHomeWork />,
       children:
         contents &&
+        Array.isArray(contents) &&
         renderListProducts(
           contents.filter(
             (element) => element.category && element.category.includes("site")
@@ -78,6 +81,7 @@ const NewsScreen = () => {
       icon: <MdWork />,
       children:
         contents &&
+        Array.isArray(contents) &&
         renderListProducts(
           contents.filter(
             (element) =>

@@ -139,7 +139,7 @@ const CheckoutScreen = () => {
       );
       setTotalCost(totalCost);
     } else setTotalCost(0);
-  }, [selectedRowKeys]);
+  }, [auth, selectedRowKeys]);
 
   const data = dataSource.map((item, index) => ({
     key: item.id,

@@ -141,13 +141,14 @@ const ProductsComponent = () => {
     material,
     series,
     year,
+    form,
   ]);
 
   useEffect(() => {
     dispatch(getAllProducts()).then((action) => {
       setProducts(action.payload);
     });
-  }, []);
+  }, [dispatch]);
 
   const handleUpdateProduct = (id) => {
     const updatingData = products.find((element) => element.id === id);

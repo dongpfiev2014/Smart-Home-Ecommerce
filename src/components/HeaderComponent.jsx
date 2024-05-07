@@ -74,14 +74,14 @@ const HeaderComponent = () => {
     const updatedCart = [...auth.currentUser.product];
     updatedCart.splice(index, 1);
     const updatedUser = { ...rest, product: updatedCart };
-    dispatch(addToCart(updatedUser))
+    dispatch(addToCart(updatedUser));
   };
 
   const handleIncreaseAmount = (index) => {
     const updatedCart = JSON.parse(JSON.stringify(auth.currentUser.product));
     updatedCart[index].amount += 1;
     const updatedUser = { ...rest, product: updatedCart };
-    dispatch(addToCart(updatedUser))
+    dispatch(addToCart(updatedUser));
   };
   const handleDecreaseAmount = (index) => {
     const updatedCart = JSON.parse(JSON.stringify(auth.currentUser.product));
@@ -90,7 +90,7 @@ const HeaderComponent = () => {
       showDeleteConfirm(index);
     } else {
       const updatedUser = { ...rest, product: updatedCart };
-      dispatch(addToCart(updatedUser))
+      dispatch(addToCart(updatedUser));
     }
   };
 
@@ -99,7 +99,7 @@ const HeaderComponent = () => {
       const updatedCart = JSON.parse(JSON.stringify(auth.currentUser.product));
       updatedCart[index].amount = value;
       const updatedUser = { ...rest, product: updatedCart };
-      dispatch(addToCart(updatedUser))
+      dispatch(addToCart(updatedUser));
     } else if (value === 0) {
       showDeleteConfirm(index);
     }
@@ -576,12 +576,11 @@ const HeaderComponent = () => {
               )}
               placement="bottom"
             >
-              <a onClick={(e) => e.preventDefault()}>
-                <Space>
+              <Space>
+                <Button type="link" icon={<DownOutlined />}>
                   EN-VN
-                  <DownOutlined />
-                </Space>
-              </a>
+                </Button>
+              </Space>
             </Dropdown>
             <Space size="middle">
               <Dropdown

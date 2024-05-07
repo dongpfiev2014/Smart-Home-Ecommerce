@@ -54,15 +54,20 @@ const ProjectsScreen = () => {
         setIsLoading(false);
       }
     });
-  }, []);
+  }, [dispatch]);
 
-  const filteredProducts = products.filter((element) => {
-    const PlaceMatch =
-      selectedPlaces.length === 0 || selectedPlaces.includes(element.place);
-    const YearMatch =
-      selectedYears.length === 0 || selectedYears.includes(element.year);
-    return PlaceMatch && YearMatch;
-  });
+  // Kiểm tra nếu products là một mảng hợp lệ trước khi sử dụng phương thức filter
+  const filteredProducts =
+    Array.isArray(products) && products.length > 0
+      ? products.filter((element) => {
+          const PlaceMatch =
+            selectedPlaces.length === 0 ||
+            selectedPlaces.includes(element.place);
+          const YearMatch =
+            selectedYears.length === 0 || selectedYears.includes(element.year);
+          return PlaceMatch && YearMatch;
+        })
+      : [];
 
   const items = [
     {
