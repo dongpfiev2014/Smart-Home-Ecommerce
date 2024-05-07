@@ -12,7 +12,6 @@ import {
   Rate,
   Menu,
   Checkbox,
-  Radio,
 } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllProducts } from "../Redux-reducer/data";

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Button, Form, Input, Space, Image, Alert } from "antd";
 import {
   UserOutlined,
@@ -8,11 +8,10 @@ import {
   LinkedinOutlined,
   MailOutlined,
 } from "@ant-design/icons";
-import { Link, Navigate, json, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "../styles/GlobalStyles.css";
 import { useDispatch } from "react-redux";
 import { register } from "../Redux-reducer/auth";
-import axios from "axios";
 import Logo from "../photos/vecteezy_smart-home-logo-icon-template_20040705.svg";
 
 const RegisterForm = () => {

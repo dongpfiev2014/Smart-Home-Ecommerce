@@ -26,11 +26,9 @@ import "../styles/GlobalStyles.css";
 import EmojiPicker from "emoji-picker-react";
 import { PiHandPalmLight } from "react-icons/pi";
 import useLocalStorage from "use-local-storage";
-import { useSelector } from "react-redux";
 
 const FloatButtonComponent = () => {
   const [chatBox, setChatBox] = useState(false);
-  const auth = useSelector((state) => state.authen.currentUser);
   const [messageList, setMessageList] = useLocalStorage("messageList", [
     {
       id: 0,
@@ -41,7 +39,6 @@ const FloatButtonComponent = () => {
   ]);
   const [newMessage, setNewMessage] = useState("");
   const [scrollToBottom, setScrollToBottom] = useState(false);
-  const [registeredUser, setRegisteredUser] = useState(false);
   const [isTyping, setIsTyping] = useState(false);
   const listRef = useRef(null);
   const inputRef = useRef(null);
@@ -307,7 +304,7 @@ const FloatButtonComponent = () => {
         }}
       >
         <Modal
-          open={isTyping && !registeredUser ? true : false}
+          open={isTyping ? true : false}
           onCancel={() => setIsTyping(false)}
           maskClosable={true}
           mask={false}

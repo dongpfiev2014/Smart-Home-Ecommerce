@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 import { getIdProduct } from "../Redux-reducer/data";
 import {
   Carousel,
@@ -18,7 +18,6 @@ import {
   InputNumber,
   Tabs,
   Form,
-  message,
 } from "antd";
 import {
   InstagramOutlined,
@@ -27,7 +26,6 @@ import {
   YoutubeOutlined,
   HeartOutlined,
 } from "@ant-design/icons";
-import { t } from "i18next";
 import { MdDesignServices } from "react-icons/md";
 import { MdInstallMobile } from "react-icons/md";
 import { MdOutlinePhonelinkSetup } from "react-icons/md";
@@ -40,11 +38,8 @@ const ProjectsDetail = () => {
   const [searchParams] = useSearchParams();
   const dispatch = useDispatch();
   const id = searchParams.get("id");
-  const [currentImage, setCurrentImage] = useState(0);
   const carouselRef = useRef(null);
   const [product, setProduct] = useState("");
-  // const auth = useSelector((state) => state.authen);
-  // const navigate = useNavigate();
 
   useEffect(() => {
     if (id) {
@@ -73,11 +68,7 @@ const ProjectsDetail = () => {
     cursor: "pointer",
   };
 
-  const handleAfterChange = (current) => {
-    setCurrentImage(current);
-  };
   const handleThumbnailClick = (index) => {
-    setCurrentImage(index);
     carouselRef.current.goTo(index, false);
   };
 
@@ -203,7 +194,7 @@ const ProjectsDetail = () => {
               <Row gutter={25} style={{ padding: "5px" }}>
                 <Col span={12}>
                   <Flex vertical gap="small">
-                    <Carousel afterChange={handleAfterChange} ref={carouselRef}>
+                    <Carousel ref={carouselRef}>
                       {product.images &&
                         product.images.map((imageUrl, index) => (
                           <>

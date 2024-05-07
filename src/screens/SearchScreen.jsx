@@ -8,7 +8,6 @@ import { LikeOutlined, MessageOutlined, StarOutlined } from "@ant-design/icons";
 const SearchScreen = () => {
   const { mode } = useSelector((state) => state.darkMode);
   const dispatch = useDispatch();
-  const auth = useSelector((state) => state.authen);
   const searchValue = useSelector((state) => state.searchValue);
   const keyword = searchValue.trim().toLowerCase();
   const allProducts = useSelector((state) => state.products);
@@ -19,7 +18,7 @@ const SearchScreen = () => {
   useEffect(() => {
     dispatch(getAllContents());
     dispatch(getAllProducts());
-  }, []);
+  }, [dispatch]);
 
   function getRandomRatio() {
     return Math.random() + 1; // Tạo một tỷ lệ ngẫu nhiên, ví dụ: từ 1 đến 2

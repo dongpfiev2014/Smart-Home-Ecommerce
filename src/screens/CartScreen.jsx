@@ -49,7 +49,6 @@ const CartScreen = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { product, ...rest } = (auth && auth.currentUser) || {};
-  const [dropdownVisible, setDropdownVisible] = useState(false);
   const [checkedSelectAll, setCheckedSelectAll] = useState(false);
   const selectedRowKeys = useSelector((state) => state.selectedRowKeys);
   const [totalCost, setTotalCost] = useState(0);
@@ -136,11 +135,7 @@ const CartScreen = () => {
       okText: "Yes",
       cancelText: "No",
       onOk() {
-        setDropdownVisible(true);
         handleRemoveItem(index);
-      },
-      onCancel() {
-        setDropdownVisible(true);
       },
     });
   };

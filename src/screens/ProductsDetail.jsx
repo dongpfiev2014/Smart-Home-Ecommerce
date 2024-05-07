@@ -27,7 +27,6 @@ import {
   YoutubeOutlined,
   HeartOutlined,
 } from "@ant-design/icons";
-import { t } from "i18next";
 import { addToCart } from "../Redux-reducer/auth";
 import { MdDesignServices } from "react-icons/md";
 import { MdInstallMobile } from "react-icons/md";
@@ -42,7 +41,6 @@ const ProductsDetail = () => {
   const [searchParams] = useSearchParams();
   const dispatch = useDispatch();
   const id = searchParams.get("id");
-  const [currentImage, setCurrentImage] = useState(0);
   const carouselRef = useRef(null);
   const [product, setProduct] = useState("");
   const [value, setValue] = useState("1");
@@ -78,11 +76,7 @@ const ProductsDetail = () => {
     cursor: "pointer",
   };
 
-  const handleAfterChange = (current) => {
-    setCurrentImage(current);
-  };
   const handleThumbnailClick = (index) => {
-    setCurrentImage(index);
     carouselRef.current.goTo(index, false);
   };
 
@@ -259,7 +253,7 @@ const ProductsDetail = () => {
               <Row gutter={25} style={{ padding: "5px" }}>
                 <Col span={12}>
                   <Flex vertical gap="small">
-                    <Carousel afterChange={handleAfterChange} ref={carouselRef}>
+                    <Carousel ref={carouselRef}>
                       {product.images &&
                         product.images.map((imageUrl, index) => (
                           <>
