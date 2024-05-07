@@ -22,7 +22,7 @@ const NewsletterSignupForm = () => {
   useEffect(() => {
     const interval = setInterval(() => {
       setHasVisitedBefore(false);
-    }, 60000);
+    }, 120000);
 
     return () => clearInterval(interval);
   }, [setHasVisitedBefore]);
