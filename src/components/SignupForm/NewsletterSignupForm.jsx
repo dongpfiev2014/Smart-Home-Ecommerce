@@ -17,15 +17,15 @@ const NewsletterSignupForm = () => {
       }, 5000);
       return () => clearTimeout(timer);
     }
-  }, []);
+  }, [hasVisitedBefore, setHasVisitedBefore]);
 
   useEffect(() => {
     const interval = setInterval(() => {
       setHasVisitedBefore(false);
-    }, 6000);
+    }, 60000);
 
     return () => clearInterval(interval);
-  }, []);
+  }, [setHasVisitedBefore]);
 
   return (
     <Modal

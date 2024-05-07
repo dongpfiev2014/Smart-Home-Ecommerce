@@ -109,19 +109,18 @@ const CheckoutScreen = () => {
     selectedRowKeys.includes(item.id)
   );
 
-  const generateRandomPrices = () => {
-    const prices = [];
-    for (let i = 0; i < dataSource.length; i++) {
-      const price = Math.floor(Math.random() * (max - min + 1)) + min;
-      prices.push(price);
-    }
-    setRandomPrices(prices);
-  };
-
   // Gọi hàm khi component được render
   useEffect(() => {
+    const generateRandomPrices = () => {
+      const prices = [];
+      for (let i = 0; i < dataSource.length; i++) {
+        const price = Math.floor(Math.random() * (max - min + 1)) + min;
+        prices.push(price);
+      }
+      setRandomPrices(prices);
+    };
     generateRandomPrices();
-  }, []);
+  }, [dataSource.length]);
 
   const totalShipping = randomPrices.reduce(
     (accumulator, currentValue) => accumulator + currentValue,
