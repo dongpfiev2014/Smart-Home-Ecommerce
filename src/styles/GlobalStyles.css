@@ -1,0 +1,169 @@
+/* Định nghĩa animation cho việc lắc mạnh và nhanh hơn */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+@keyframes spin-shake {
+  0%,
+  100% {
+    transform: rotate(0deg);
+  }
+  25% {
+    transform: rotate(20deg);
+  }
+  50% {
+    transform: rotate(-20deg);
+  }
+  75% {
+    transform: rotate(10deg);
+  }
+}
+
+/* Định nghĩa animation của bạn */
+@keyframes your-animation {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* Áp dụng cả hai animation vào class */
+.your-animation-class {
+  animation: your-animation 0.5s ease-in-out infinite,
+    spin-shake 0.5s ease-in-out infinite; /* Tốc độ và mạnh mẽ hơn */
+}
+
+/* Định nghĩa animation cho hiệu ứng to nhỏ */
+@keyframes scale-animation {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* Áp dụng animation vào class */
+.your-animation-class-wrapper {
+  animation: scale-animation 1s ease-in-out infinite;
+}
+
+/* Tùy chỉnh thanh cuộn trên trình duyệt webkit */
+::-webkit-scrollbar {
+  width: 10px; /* Độ rộng của thanh cuộn */
+}
+/* Tùy chỉnh nền cho thanh cuộn */
+::-webkit-scrollbar-track {
+  background: #f1f1f1; /* Màu nền cho thanh cuộn */
+}
+/* Tùy chỉnh phần cuộn trên thanh cuộn */
+::-webkit-scrollbar-thumb {
+  background: #888; /* Màu nền phần cuộn */
+}
+/* Hiển thị khi rê chuột lên phần cuộn */
+::-webkit-scrollbar-thumb:hover {
+  background: #555; /* Màu nền khi rê chuột lên */
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+video {
+  object-fit: cover;
+}
+
+.custom-button {
+  color: white;
+  background-color: transparent;
+  border: 1px solid white;
+  transition: background-color 0.4s ease;
+}
+.custom-button:hover {
+  background-color: #e0d2d2;
+  color: #000000;
+}
+
+.CKeditor {
+  width: 100%;
+  height: 100%;
+  padding: 0 auto;
+  margin: 0 auto;
+  font-family: "Helvetica Neue", sans-serif;
+}
+
+.CKeditor img {
+  width: 100%;
+  height: 100%;
+  border-radius: 15px;
+  object-fit: cover;
+  overflow: hidden;
+}
+
+.image.image_resized.image-style-side {
+  float: right;
+  margin-left: 25px;
+}
+
+.image.image_resized {
+  margin: 0 auto;
+}
+
+/* Defining the default content styles for the block images.
+This is what the newly inserted image without any
+style-specific class will look like. */
+
+iframe {
+  width: 100%;
+  height: 600px;
+  border-radius: 15px;
+}
+
+.carousel-item {
+  position: relative;
+  width: 100%;
+}
+
+.carousel-image {
+  width: 100%;
+  height: auto;
+}
+
+.carousel-title {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  padding: 10px;
+  text-align: center;
+}
+
+.image-carousel {
+  animation: carousel 35s linear infinite; /* Điều chỉnh thời gian chạy ở đây */
+}
+
+@keyframes carousel {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}

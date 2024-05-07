@@ -1,0 +1,56 @@
+{
+  "name": "smart-home-ecommerce",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@ant-design/icons": "^5.3.6",
+    "@ckeditor/ckeditor5-build-classic": "^41.3.1",
+    "@ckeditor/ckeditor5-media-embed": "^41.3.1",
+    "@ckeditor/ckeditor5-react": "^6.2.0",
+    "@reduxjs/toolkit": "^2.2.3",
+    "@testing-library/jest-dom": "^5.17.0",
+    "@testing-library/react": "^13.4.0",
+    "@testing-library/user-event": "^13.5.0",
+    "antd": "^5.17.0",
+    "axios": "^1.6.8",
+    "ckeditor5-custom-build": "file:ckeditor5",
+    "emoji-picker-react": "^4.9.2",
+    "i18next": "^23.11.2",
+    "i18next-http-backend": "^2.5.1",
+    "moment": "^2.30.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-helmet": "^6.1.0",
+    "react-i18next": "^14.1.0",
+    "react-icons": "^5.0.1",
+    "react-redux": "^9.1.1",
+    "react-router-dom": "^6.22.3",
+    "react-scripts": "5.0.1",
+    "use-local-storage": "^3.0.0",
+    "web-vitals": "^2.1.4"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}
