@@ -11,8 +11,7 @@ import "../src/styles/GlobalStyles.css";
 import ProfileScreen from "./screens/ProfileScreen";
 import LoginForm from "./auth/LoginForm";
 import RegisterForm from "./auth/RegisterForm";
-import { Suspense, useEffect } from "react";
-import { Spin } from "antd";
+import { useEffect } from "react";
 import ProductsScreen from "./screens/ProductsScreen";
 import ProjectsScreen from "./screens/ProjectsScreen";
 import NewsScreen from "./screens/NewsScreen";
@@ -37,7 +36,7 @@ function App() {
 
   return (
     <>
-      <Suspense
+      {/* <Suspense
         fallback={
           <>
             <div
@@ -50,35 +49,35 @@ function App() {
             </div>
           </>
         }
-      >
-        <BrowserRouter>
-          <HeaderComponent />
-          <Routes>
-            <Route path="/" element={<HomeScreen />} />
-            <Route path="/about/:id" element={<AboutScreen />} />
-            <Route path="/villa/:id" element={<VillaComponent />} />
-            <Route path="/hotel/:id" element={<HotelComponent />} />
-            <Route path="/products/:id" element={<ProductsScreen />} />
-            <Route path="/product-detail" element={<ProductsDetail />} />
-            <Route path="/cart" element={<CartScreen />} />
-            <Route path="/checkout" element={<CheckoutScreen />} />
-            <Route path="/projects/:id" element={<ProjectsScreen />} />
-            <Route path="/project-detail" element={<ProjectsDetail />} />
-            <Route path="/news/:id" element={<NewsScreen />} />
-            <Route path="/new-detail" element={<NewDetail />} />
-            <Route path="/contact/:id" element={<ContactScreen />} />
-            <Route path="/service" element={<ServiceScreen />} />
-            <Route path="/accounts/*" element={<ProfileScreen />} />
-            <Route path="/accounts/login" element={<LoginForm />} />
-            <Route path="/accounts/signup" element={<RegisterForm />} />
-            <Route path="/search" element={<SearchScreen />} />
-            <Route path="/*" element={<NotFoundScreen />} />
-          </Routes>
-          <NewsletterSignupForm />
-          <FloatButtonComponent />
-          <FooterComponent />
-        </BrowserRouter>
-      </Suspense>
+      > */}
+      <BrowserRouter>
+        <HeaderComponent />
+        <Routes>
+          <Route path="/" element={<HomeScreen />} />
+          <Route path="/about/:id" element={<AboutScreen />} />
+          <Route path="/villa/:id" element={<VillaComponent />} />
+          <Route path="/hotel/:id" element={<HotelComponent />} />
+          <Route path="/products/:id" element={<ProductsScreen />} />
+          <Route path="/product-detail" element={<ProductsDetail />} />
+          <Route path="/cart" element={<CartScreen />} />
+          <Route path="/checkout" element={<CheckoutScreen />} />
+          <Route path="/projects/:id" element={<ProjectsScreen />} />
+          <Route path="/project-detail" element={<ProjectsDetail />} />
+          <Route path="/news/:id" element={<NewsScreen />} />
+          <Route path="/new-detail" element={<NewDetail />} />
+          <Route path="/contact/:id" element={<ContactScreen />} />
+          <Route path="/service" element={<ServiceScreen />} />
+          <Route path="/accounts/*" element={<ProfileScreen />} />
+          <Route path="/accounts/login" element={<LoginForm />} />
+          <Route path="/accounts/signup" element={<RegisterForm />} />
+          <Route path="/search" element={<SearchScreen />} />
+          <Route path="/*" element={<NotFoundScreen />} />
+        </Routes>
+        <NewsletterSignupForm />
+        <FloatButtonComponent />
+        <FooterComponent />
+      </BrowserRouter>
+      {/* </Suspense> */}
     </>
   );
 }
