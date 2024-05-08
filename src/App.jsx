@@ -72,7 +72,7 @@ function App() {
             <Route path="/accounts/login" element={<LoginForm />} />
             <Route path="/accounts/signup" element={<RegisterForm />} />
             <Route path="/search" element={<SearchScreen />} />
-            <Route path="*" element={<NotFoundScreen />} />
+            <Route path="/*" element={<NotFoundScreen />} />
           </Routes>
           <NewsletterSignupForm />
           <FloatButtonComponent />
