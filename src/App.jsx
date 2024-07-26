@@ -27,7 +27,7 @@ import CheckoutScreen from "./screens/CheckoutScreen";
 import ProjectsDetail from "./screens/ProjectsDetail";
 import NewDetail from "./screens/NewDetail";
 import SearchScreen from "./screens/SearchScreen";
-import { Spin } from "antd";
+import { Affix, Spin } from "antd";
 
 function App() {
   const dispatch = useDispatch();
@@ -52,7 +52,9 @@ function App() {
         }
       >
         <BrowserRouter>
-          <HeaderComponent />
+          <Affix>
+            <HeaderComponent />
+          </Affix>
           <Routes>
             <Route path="/" element={<HomeScreen />} />
             <Route path="/about/:id" element={<AboutScreen />} />

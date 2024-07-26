@@ -9,6 +9,7 @@ import {
   Avatar,
   Row,
   Col,
+  Grid,
 } from "antd";
 import {
   InstagramOutlined,
@@ -25,6 +26,7 @@ const FooterComponent = () => {
   const navigate = useNavigate();
   const { t } = useTranslation();
   const { mode } = useSelector((state) => state.darkMode);
+  const screens = Grid.useBreakpoint();
   return (
     <>
       <Layout
@@ -33,46 +35,57 @@ const FooterComponent = () => {
           color: mode ? "rgba(255, 255, 255, 0.65)" : "rgba(0, 0, 0, 0.88)",
           position: "relative",
         }}
+        className="d-flex justify-content-center align-items-center"
       >
-        <Flex justify="center" align="center" vertical>
-          <Flex justify="center" align="center" gap={200}>
-            <Card
-              style={{
-                border: "none",
-                backgroundColor: mode ? "#001529" : "#f5f5f5",
-                width: "400px",
-              }}
-            >
-              <Card.Meta
-                avatar={<Avatar src={Logo} />}
-                title={
-                  <span
-                    style={{
-                      color: mode
-                        ? "rgba(255, 255, 255, 0.65)"
-                        : "rgba(0, 0, 0, 0.88)",
-                    }}
-                  >
-                    {t("smart home")}
-                  </span>
-                }
-                description={
-                  <span
-                    style={{
-                      color: mode
-                        ? "rgba(255, 255, 255, 0.65)"
-                        : "rgba(0, 0, 0, 0.88)",
-                    }}
-                  >
-                    {t("description")}
-                  </span>
-                }
-              />
-            </Card>
+        <Flex
+          justify="center"
+          align="center"
+          vertical
+          style={{
+            maxWidth: "1200px",
+            width: "1200px",
+          }}
+        >
+          <Flex justify="center" align="center" gap={5}>
+            {screens.md && (
+              <Card
+                style={{
+                  border: "none",
+                  backgroundColor: mode ? "#001529" : "#f5f5f5",
+                  width: "400px",
+                }}
+              >
+                <Card.Meta
+                  avatar={<Avatar src={Logo} />}
+                  title={
+                    <span
+                      style={{
+                        color: mode
+                          ? "rgba(255, 255, 255, 0.65)"
+                          : "rgba(0, 0, 0, 0.88)",
+                      }}
+                    >
+                      {t("smart home")}
+                    </span>
+                  }
+                  description={
+                    <span
+                      style={{
+                        color: mode
+                          ? "rgba(255, 255, 255, 0.65)"
+                          : "rgba(0, 0, 0, 0.88)",
+                      }}
+                    >
+                      {t("description")}
+                    </span>
+                  }
+                />
+              </Card>
+            )}
             <Row
-              gutter={[14, 14]}
+              gutter={[5, 5]}
               style={{
-                width: "350px",
+                width: "310px",
                 color: mode
                   ? "rgba(255, 255, 255, 0.65)"
                   : "rgba(0, 0, 0, 0.88)",
@@ -204,7 +217,7 @@ const FooterComponent = () => {
               backgroundColor: mode ? "rgba(255, 255, 255, 0.65)" : "#e0d2d2",
             }}
           />
-          <Flex align="center" gap={350}>
+          <Flex align="center" gap={10}>
             <span>Copyright © 2024. All right reserved</span>
             <Space size="small">
               <Button

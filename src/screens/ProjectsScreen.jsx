@@ -10,11 +10,13 @@ import {
   Image,
   Space,
   Checkbox,
+  Grid,
+  Drawer,
 } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllProducts } from "../Redux-reducer/data";
 import { useTranslation } from "react-i18next";
-import { OrderedListOutlined } from "@ant-design/icons";
+import { OrderedListOutlined, MenuOutlined } from "@ant-design/icons";
 import { MdOutlineDensitySmall } from "react-icons/md";
 import { useNavigate, useParams } from "react-router-dom";
 import "../styles/GlobalStyles.css";
@@ -34,6 +36,9 @@ const ProjectsScreen = () => {
   const navigate = useNavigate();
   const params = useParams();
   const { id } = params;
+  const screens = Grid.useBreakpoint();
+  const [drawerVisible, setDrawerVisible] = useState(false);
+
   useEffect(() => {
     setActiveKeyTab(id);
   }, [id]);
@@ -135,8 +140,10 @@ const ProjectsScreen = () => {
           loading={isLoading}
           pagination={{
             pageSize: 12,
+            position: "bottom",
+            align: "center",
           }}
-          grid={{ gutter: 10, column: 3 }}
+          grid={{ gutter: 10, xs: 1, sm: 2, md: 2, lg: 3, xl: 3, xxl: 3 }}
           dataSource={data}
           renderItem={(item) => (
             <List.Item key={item.id}>
@@ -201,6 +208,10 @@ const ProjectsScreen = () => {
     );
   }
 
+  const toggleDrawer = () => {
+    setDrawerVisible(!drawerVisible);
+  };
+
   return (
     <>
       <Flex
@@ -212,56 +223,93 @@ const ProjectsScreen = () => {
         align="center"
       >
         <Row
+          className="d-flex justify-content-center align-items-start"
           style={{
             width: "1400px",
             minHeight: "80vh",
             backgroundColor: mode ? "#001529" : "white",
           }}
         >
-          <Col
-            span={4}
-            style={{
-              position: "fixed",
-              width: "calc(1400px/6)",
-            }}
-          >
-            <Flex justify="center" align="flex-start" vertical gap="middle">
-              <Button type="text" icon={<OrderedListOutlined />}>
-                {t("All Categories")}
-              </Button>
-              <Checkbox.Group onChange={handlePlaceCheckboxChange}>
-                <Space direction="vertical">
-                  <div class="fw-medium">{t("place")}</div>
-                  <Checkbox value="Hà Nội">Hà Nội</Checkbox>
-                  <Checkbox value="Đà Nẵng">Đà Nẵng</Checkbox>
-                  <Checkbox value="TP. Hồ Chí Minh">TP. Hồ Chí Minh</Checkbox>
-                </Space>
-              </Checkbox.Group>
-              <Checkbox.Group onChange={handleYearCheckboxChange}>
-                <Space direction="vertical">
-                  <div class="fw-medium">{t("year")}</div>
-                  <Checkbox value="2020">2020</Checkbox>
-                  <Checkbox value="2021">2021</Checkbox>
-                  <Checkbox value="2022">2022</Checkbox>
-                  <Checkbox value="2023">2023</Checkbox>
-                </Space>
-              </Checkbox.Group>
-            </Flex>
-          </Col>
-          <Col
-            span={20}
-            style={{
-              marginLeft: "calc(1400px/6)",
-              height: "100%",
-            }}
-          >
+          {screens.lg ? (
+            <Col span={4}>
+              <Flex justify="center" align="flex-start" vertical gap="middle">
+                <Button type="text" icon={<OrderedListOutlined />}>
+                  {t("All Categories")}
+                </Button>
+                <Checkbox.Group onChange={handlePlaceCheckboxChange}>
+                  <Space direction="vertical">
+                    <div class="fw-medium">{t("place")}</div>
+                    <Checkbox value="Hà Nội">Hà Nội</Checkbox>
+                    <Checkbox value="Đà Nẵng">Đà Nẵng</Checkbox>
+                    <Checkbox value="TP. Hồ Chí Minh">TP. Hồ Chí Minh</Checkbox>
+                  </Space>
+                </Checkbox.Group>
+                <Checkbox.Group onChange={handleYearCheckboxChange}>
+                  <Space direction="vertical">
+                    <div class="fw-medium">{t("year")}</div>
+                    <Checkbox value="2020">2020</Checkbox>
+                    <Checkbox value="2021">2021</Checkbox>
+                    <Checkbox value="2022">2022</Checkbox>
+                    <Checkbox value="2023">2023</Checkbox>
+                  </Space>
+                </Checkbox.Group>
+              </Flex>
+            </Col>
+          ) : (
+            <>
+              <Button
+                type="primary"
+                icon={<MenuOutlined />}
+                onClick={toggleDrawer}
+                style={{
+                  position: "fixed",
+                  zIndex: 1000,
+                  top: "120px",
+                  left: "5px",
+                }}
+              />
+              <Drawer
+                title="Navigation"
+                placement="left"
+                onClose={toggleDrawer}
+                visible={drawerVisible}
+                style={{ width: "300px", maxWidth: "300px" }}
+              >
+                <Flex justify="center" align="flex-start" vertical gap="middle">
+                  <Button type="text" icon={<OrderedListOutlined />}>
+                    {t("All Categories")}
+                  </Button>
+                  <Checkbox.Group onChange={handlePlaceCheckboxChange}>
+                    <Space direction="vertical">
+                      <div class="fw-medium">{t("place")}</div>
+                      <Checkbox value="Hà Nội">Hà Nội</Checkbox>
+                      <Checkbox value="Đà Nẵng">Đà Nẵng</Checkbox>
+                      <Checkbox value="TP. Hồ Chí Minh">
+                        TP. Hồ Chí Minh
+                      </Checkbox>
+                    </Space>
+                  </Checkbox.Group>
+                  <Checkbox.Group onChange={handleYearCheckboxChange}>
+                    <Space direction="vertical">
+                      <div class="fw-medium">{t("year")}</div>
+                      <Checkbox value="2020">2020</Checkbox>
+                      <Checkbox value="2021">2021</Checkbox>
+                      <Checkbox value="2022">2022</Checkbox>
+                      <Checkbox value="2023">2023</Checkbox>
+                    </Space>
+                  </Checkbox.Group>
+                </Flex>
+              </Drawer>
+            </>
+          )}
+          <Col span={20}>
             <Tabs
               items={items}
               onChange={onChangeTabs}
               type="card"
               size="middle"
               tabBarGutter={5}
-              centered
+              centered={screens.lg ? true : false}
               activeKey={activeKeyTab}
             />
           </Col>

@@ -12,11 +12,13 @@ import {
   Rate,
   Menu,
   Checkbox,
+  Grid,
+  Drawer,
 } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllProducts } from "../Redux-reducer/data";
 import { useTranslation } from "react-i18next";
-import { OrderedListOutlined } from "@ant-design/icons";
+import { OrderedListOutlined, MenuOutlined } from "@ant-design/icons";
 import { SiNintendoswitch } from "react-icons/si";
 import { MdOutlineDensitySmall } from "react-icons/md";
 import { GiEntryDoor } from "react-icons/gi";
@@ -44,6 +46,8 @@ const ProductsScreen = () => {
   const { id } = params;
   const [lowToHighChecked, setLowToHighChecked] = useState(false);
   const [highToLowChecked, setHighToLowChecked] = useState(false);
+  const screens = Grid.useBreakpoint();
+  const [drawerVisible, setDrawerVisible] = useState(false);
 
   useEffect(() => {
     setActiveKeyTab(id);
@@ -238,7 +242,7 @@ const ProductsScreen = () => {
               checked={lowToHighChecked}
               onChange={(e) => handleLowToHighChange(e.target.checked)}
             >
-              Price: Low to High
+              Ascending
             </Checkbox>
           ),
         },
@@ -250,7 +254,7 @@ const ProductsScreen = () => {
               checked={highToLowChecked}
               onChange={(e) => handleHighToLowChange(e.target.checked)}
             >
-              Price: High to Low
+              Descending
             </Checkbox>
           ),
         },
@@ -269,15 +273,29 @@ const ProductsScreen = () => {
     return Math.random() + 1; // Tạo một tỷ lệ ngẫu nhiên, ví dụ: từ 1 đến 2
   }
 
+  const toggleDrawer = () => {
+    setDrawerVisible(!drawerVisible);
+  };
+
   function renderListProducts(data) {
     return (
       <>
         <List
           loading={isLoading}
           pagination={{
-            pageSize: 30,
+            pageSize: 20,
+            position: "bottom",
+            align: "center",
           }}
-          grid={{ gutter: 10, column: 5 }}
+          grid={{
+            gutter: 10,
+            xs: 1,
+            sm: 2,
+            md: 3,
+            lg: 4,
+            xl: 5,
+            xxl: 5,
+          }}
           dataSource={data}
           renderItem={(item) => (
             <List.Item key={item.id}>
@@ -387,90 +405,211 @@ const ProductsScreen = () => {
         align="center"
       >
         <Row
+          className="d-flex justify-content-center align-items-start"
           style={{
-            width: "1400px",
+            width: "1200px",
             minHeight: "80vh",
             backgroundColor: mode ? "#001529" : "white",
           }}
         >
-          <Col
-            span={4}
-            style={{
-              position: "fixed",
-              width: "calc(1400px/6)",
-            }}
-          >
-            <Flex justify="center" align="flex-start" vertical gap="middle">
-              <Button type="text" icon={<OrderedListOutlined />}>
-                {t("All Categories")}
-              </Button>
-              <Flex justify="center" align="center">
-                <Menu
-                  theme={mode ? "dark" : "light"}
-                  mode="inline"
-                  selectedKeys={[current]}
-                  items={itemsFilter}
-                  onClick={onClickFilter}
-                  style={{
-                    height: "100%",
-                    borderRight: 0,
-                  }}
-                  defaultOpenKeys={["1"]}
-                />
+          {screens.lg ? (
+            <Col span={4}>
+              <Flex
+                justify="center"
+                align="flex-start"
+                vertical
+                gap="middle"
+                style={{ padding: "5px" }}
+              >
+                <Button type="text" icon={<OrderedListOutlined />}>
+                  {t("All Categories")}
+                </Button>
+                <Flex justify="center" align="center">
+                  <Menu
+                    theme={mode ? "dark" : "light"}
+                    mode="inline"
+                    selectedKeys={[current]}
+                    items={itemsFilter}
+                    onClick={onClickFilter}
+                    style={{
+                      height: "100%",
+                      borderRight: 0,
+                    }}
+                    defaultOpenKeys={["1"]}
+                  />
+                </Flex>
+                <Checkbox.Group onChange={handleBrandCheckboxChange}>
+                  <Space direction="vertical">
+                    <div class="fw-medium">{t("brand")}</div>
+                    <Checkbox value="vimar">Vimar</Checkbox>
+                    <Checkbox value="vda">VDA</Checkbox>
+                    <Checkbox value="epic">Epic</Checkbox>
+                    <Checkbox value="yale">Yale</Checkbox>
+                    <Checkbox value="somfy">Somfy</Checkbox>
+                  </Space>
+                </Checkbox.Group>
+                <Checkbox.Group onChange={handleMaterialCheckboxChange}>
+                  <Space direction="vertical">
+                    <div class="fw-medium">{t("material")}</div>
+                    <Checkbox value="techno">Techno</Checkbox>
+                    <Checkbox value="metal">Metal</Checkbox>
+                    <Checkbox value="glass">Glass</Checkbox>
+                    <Checkbox value="stone">Stone</Checkbox>
+                    <Checkbox value="wood">Wood</Checkbox>
+                    <Checkbox value="leather">Leather</Checkbox>
+                  </Space>
+                </Checkbox.Group>
+                <Checkbox.Group onChange={handleSeriesCheckboxChange}>
+                  <Space direction="vertical">
+                    <div class="fw-medium">{t("series")}</div>
+                    <Checkbox value="eikon">Eikon (Luxury)</Checkbox>
+                    <Checkbox value="arke">Arke (Mid-range)</Checkbox>
+                    <Checkbox value="plana">Plana (Entry-level)</Checkbox>
+                  </Space>
+                </Checkbox.Group>
+                <Space direction="vertical">
+                  <div class="fw-medium">Rating</div>
+                  <Rate
+                    disabled
+                    defaultValue={5}
+                    style={{ fontSize: "14px" }}
+                  />
+                  <Rate
+                    disabled
+                    defaultValue={4}
+                    style={{ fontSize: "14px" }}
+                  />
+                  <Rate
+                    disabled
+                    defaultValue={3}
+                    style={{ fontSize: "14px" }}
+                  />
+                  <Rate
+                    disabled
+                    defaultValue={2}
+                    style={{ fontSize: "14px" }}
+                  />
+                  <Rate
+                    disabled
+                    defaultValue={1}
+                    style={{ fontSize: "14px" }}
+                  />
+                </Space>
               </Flex>
-              <Checkbox.Group onChange={handleBrandCheckboxChange}>
-                <Space direction="vertical">
-                  <div class="fw-medium">{t("brand")}</div>
-                  <Checkbox value="vimar">Vimar</Checkbox>
-                  <Checkbox value="vda">VDA</Checkbox>
-                  <Checkbox value="epic">Epic</Checkbox>
-                  <Checkbox value="yale">Yale</Checkbox>
-                  <Checkbox value="somfy">Somfy</Checkbox>
-                </Space>
-              </Checkbox.Group>
-              <Checkbox.Group onChange={handleMaterialCheckboxChange}>
-                <Space direction="vertical">
-                  <div class="fw-medium">{t("material")}</div>
-                  <Checkbox value="techno">Techno</Checkbox>
-                  <Checkbox value="metal">Metal</Checkbox>
-                  <Checkbox value="glass">Glass</Checkbox>
-                  <Checkbox value="stone">Stone</Checkbox>
-                  <Checkbox value="wood">Wood</Checkbox>
-                  <Checkbox value="leather">Leather</Checkbox>
-                </Space>
-              </Checkbox.Group>
-              <Checkbox.Group onChange={handleSeriesCheckboxChange}>
-                <Space direction="vertical">
-                  <div class="fw-medium">{t("series")}</div>
-                  <Checkbox value="eikon">Eikon (Luxury)</Checkbox>
-                  <Checkbox value="arke">Arke (Mid-range)</Checkbox>
-                  <Checkbox value="plana">Plana (Entry-level)</Checkbox>
-                </Space>
-              </Checkbox.Group>
-              <Space direction="vertical">
-                <div class="fw-medium">Rating</div>
-                <Rate disabled defaultValue={5} style={{ fontSize: "14px" }} />
-                <Rate disabled defaultValue={4} style={{ fontSize: "14px" }} />
-                <Rate disabled defaultValue={3} style={{ fontSize: "14px" }} />
-                <Rate disabled defaultValue={2} style={{ fontSize: "14px" }} />
-                <Rate disabled defaultValue={1} style={{ fontSize: "14px" }} />
-              </Space>
-            </Flex>
-          </Col>
-          <Col
-            span={20}
-            style={{
-              marginLeft: "calc(1400px/6)",
-              height: "100%",
-            }}
-          >
+            </Col>
+          ) : (
+            <>
+              <Button
+                type="primary"
+                icon={<MenuOutlined />}
+                onClick={toggleDrawer}
+                style={{
+                  position: "fixed",
+                  zIndex: 1000,
+                  top: "120px",
+                  left: "5px",
+                }}
+              />
+              <Drawer
+                title="Navigation"
+                placement="left"
+                onClose={toggleDrawer}
+                visible={drawerVisible}
+                style={{ width: "300px", maxWidth: "300px" }}
+              >
+                <Flex
+                  justify="center"
+                  align="flex-start"
+                  vertical
+                  gap="middle"
+                  style={{ padding: "5px" }}
+                >
+                  <Button type="text" icon={<OrderedListOutlined />}>
+                    {t("All Categories")}
+                  </Button>
+                  <Flex justify="center" align="center">
+                    <Menu
+                      theme={mode ? "dark" : "light"}
+                      mode="inline"
+                      selectedKeys={[current]}
+                      items={itemsFilter}
+                      onClick={onClickFilter}
+                      style={{
+                        height: "100%",
+                        borderRight: 0,
+                      }}
+                      defaultOpenKeys={["1"]}
+                    />
+                  </Flex>
+                  <Checkbox.Group onChange={handleBrandCheckboxChange}>
+                    <Space direction="vertical">
+                      <div class="fw-medium">{t("brand")}</div>
+                      <Checkbox value="vimar">Vimar</Checkbox>
+                      <Checkbox value="vda">VDA</Checkbox>
+                      <Checkbox value="epic">Epic</Checkbox>
+                      <Checkbox value="yale">Yale</Checkbox>
+                      <Checkbox value="somfy">Somfy</Checkbox>
+                    </Space>
+                  </Checkbox.Group>
+                  <Checkbox.Group onChange={handleMaterialCheckboxChange}>
+                    <Space direction="vertical">
+                      <div class="fw-medium">{t("material")}</div>
+                      <Checkbox value="techno">Techno</Checkbox>
+                      <Checkbox value="metal">Metal</Checkbox>
+                      <Checkbox value="glass">Glass</Checkbox>
+                      <Checkbox value="stone">Stone</Checkbox>
+                      <Checkbox value="wood">Wood</Checkbox>
+                      <Checkbox value="leather">Leather</Checkbox>
+                    </Space>
+                  </Checkbox.Group>
+                  <Checkbox.Group onChange={handleSeriesCheckboxChange}>
+                    <Space direction="vertical">
+                      <div class="fw-medium">{t("series")}</div>
+                      <Checkbox value="eikon">Eikon (Luxury)</Checkbox>
+                      <Checkbox value="arke">Arke (Mid-range)</Checkbox>
+                      <Checkbox value="plana">Plana (Entry-level)</Checkbox>
+                    </Space>
+                  </Checkbox.Group>
+                  <Space direction="vertical">
+                    <div class="fw-medium">Rating</div>
+                    <Rate
+                      disabled
+                      defaultValue={5}
+                      style={{ fontSize: "14px" }}
+                    />
+                    <Rate
+                      disabled
+                      defaultValue={4}
+                      style={{ fontSize: "14px" }}
+                    />
+                    <Rate
+                      disabled
+                      defaultValue={3}
+                      style={{ fontSize: "14px" }}
+                    />
+                    <Rate
+                      disabled
+                      defaultValue={2}
+                      style={{ fontSize: "14px" }}
+                    />
+                    <Rate
+                      disabled
+                      defaultValue={1}
+                      style={{ fontSize: "14px" }}
+                    />
+                  </Space>
+                </Flex>
+              </Drawer>
+            </>
+          )}
+          <Col span={screens.lg ? 20 : 24}>
             <Tabs
               items={items}
               onChange={onChangeTabs}
               type="card"
-              size="middle"
+              size="small"
               tabBarGutter={5}
-              centered
+              centered={screens.lg ? true : false}
               activeKey={activeKeyTab}
             />
           </Col>

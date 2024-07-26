@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Col, Flex, Row, Button, Tabs, List, Card, Image } from "antd";
+import { Col, Flex, Row, Button, Tabs, List, Card, Image, Grid } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllContents } from "../Redux-reducer/data";
 import { useTranslation } from "react-i18next";
@@ -21,6 +21,7 @@ const NewsScreen = () => {
   const navigate = useNavigate();
   const params = useParams();
   const { id } = params;
+  const screens = Grid.useBreakpoint();
   useEffect(() => {
     setActiveKeyTab(id);
   }, [id]);
@@ -103,7 +104,7 @@ const NewsScreen = () => {
           pagination={{
             pageSize: 16,
           }}
-          grid={{ gutter: 10, column: 4 }}
+          grid={{ gutter: 10, xs: 1, sm: 2, md: 3, lg: 4, xl: 5, xxl: 5 }}
           dataSource={data}
           renderItem={(item) => (
             <List.Item key={item.id}>
@@ -164,39 +165,30 @@ const NewsScreen = () => {
         align="center"
       >
         <Row
+          className="d-flex justify-content-center align-items-start"
           style={{
             width: "1400px",
             minHeight: "80vh",
             backgroundColor: mode ? "#001529" : "white",
           }}
         >
-          <Col
-            span={4}
-            style={{
-              position: "fixed",
-              width: "calc(1400px/6)",
-            }}
-          >
-            <Flex justify="center" align="flex-start" vertical gap="middle">
-              <Button type="text" icon={<OrderedListOutlined />}>
-                {t("All Categories")}
-              </Button>
-            </Flex>
-          </Col>
-          <Col
-            span={20}
-            style={{
-              marginLeft: "calc(1400px/6)",
-              height: "100%",
-            }}
-          >
+          {screens.md && (
+            <Col span={4}>
+              <Flex justify="center" align="flex-start" vertical gap="middle">
+                <Button type="text" icon={<OrderedListOutlined />}>
+                  {t("All Categories")}
+                </Button>
+              </Flex>
+            </Col>
+          )}
+          <Col span={20}>
             <Tabs
               items={items}
               onChange={onChangeTabs}
               type="card"
               size="middle"
               tabBarGutter={5}
-              centered
+              centered={screens.lg ? true : false}
               activeKey={activeKeyTab}
             />
           </Col>

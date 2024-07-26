@@ -7,7 +7,6 @@ import {
   Layout,
   Space,
   Flex,
-  Switch,
   Dropdown,
   Button,
   Badge,
@@ -18,11 +17,12 @@ import {
   Popconfirm,
   InputNumber,
   Modal,
+  Grid,
 } from "antd";
 import { useNavigate, NavLink } from "react-router-dom";
 import { DownOutlined, ExclamationCircleOutlined } from "@ant-design/icons";
 import { PiShoppingCartLight } from "react-icons/pi";
-import { toggleDarkMode } from "../Redux-reducer/darkModeSlice";
+// import { toggleDarkMode } from "../Redux-reducer/darkModeSlice";
 import { useTranslation } from "react-i18next";
 import { LANGUAGES } from "../constants";
 import { addToCart, logout } from "../Redux-reducer/auth";
@@ -43,6 +43,7 @@ const HeaderComponent = () => {
   const { product, ...rest } = (auth && auth.currentUser) || {};
   const [dropdownVisible, setDropdownVisible] = useState(false);
   const [pathToRerender, setPathToRerender] = useState("");
+  const screens = Grid.useBreakpoint();
 
   const onClick = (val) => {
     setCurrent(val.key);
@@ -496,17 +497,31 @@ const HeaderComponent = () => {
 
   return (
     <>
-      <Layout style={{ position: "sticky", zIndex: 1, top: 0 }}>
+      <Layout
+        style={{
+          backgroundColor: "white",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
         <Flex
           justify="center"
           align="center"
-          style={{ backgroundColor: mode ? "#001529" : "white" }}
+          style={{
+            backgroundColor: "white",
+            maxWidth: "1200px",
+            width: "100%",
+            overflow: "hidden",
+          }}
         >
           <Space
-            size="large"
+            className="d-flex justify-content-center"
+            size="small"
             align="center"
             direction="horizontal"
             wrap={false}
+            style={{ backgroundColor: "white", width: "100%" }}
           >
             <Image
               src={Logo}
@@ -525,64 +540,68 @@ const HeaderComponent = () => {
               }}
             >
               <Menu
+                style={{ width: screens.xl ? "500px" : "40px" }}
                 theme={mode ? "dark" : "light"}
                 onClick={onClick}
                 selectedKeys={[current]}
                 mode="horizontal"
                 items={items}
-                disabledOverflow
               />
             </ConfigProvider>
-            <Input.Search
-              placeholder="Search"
-              allowClear
-              size="medium"
-              // onSearch={onSearch}
-              style={{
-                width: 200,
-              }}
-              onChange={(e) => handleSearch(e)}
-            />
-            <Switch
+            {screens.md && (
+              <Input.Search
+                placeholder="Search"
+                allowClear
+                size="medium"
+                // onSearch={onSearch}
+                style={{
+                  width: 200,
+                }}
+                onChange={(e) => handleSearch(e)}
+              />
+            )}
+            {/* <Switch
               checked={mode}
               onChange={() => dispatch(toggleDarkMode())}
               checkedChildren="Dark"
               unCheckedChildren="Light"
-            />
-            <Dropdown
-              dropdownRender={() => (
-                <>
-                  <Space
-                    direction="vertical"
-                    size="small"
-                    style={{
-                      backgroundColor: mode ? "#001529" : "#f5f5f5",
-                      borderRadius: "10px",
-                    }}
-                  >
-                    {LANGUAGES.map(({ code, label }) => (
-                      <>
-                        <Button
-                          key={code}
-                          type="link"
-                          onClick={() => i18n.changeLanguage(code)}
-                        >
-                          {label}
-                        </Button>
-                      </>
-                    ))}
-                  </Space>
-                </>
-              )}
-              placement="bottom"
-            >
-              <Space>
-                <Button type="link" icon={<DownOutlined />}>
-                  EN-VN
-                </Button>
-              </Space>
-            </Dropdown>
-            <Space size="middle">
+            /> */}
+            {screens.sm && (
+              <Dropdown
+                dropdownRender={() => (
+                  <>
+                    <Space
+                      direction="vertical"
+                      size="small"
+                      style={{
+                        backgroundColor: mode ? "#001529" : "#f5f5f5",
+                        borderRadius: "10px",
+                      }}
+                    >
+                      {LANGUAGES.map(({ code, label }) => (
+                        <>
+                          <Button
+                            key={code}
+                            type="link"
+                            onClick={() => i18n.changeLanguage(code)}
+                          >
+                            {label}
+                          </Button>
+                        </>
+                      ))}
+                    </Space>
+                  </>
+                )}
+                placement="bottom"
+              >
+                <Space>
+                  <Button type="link" icon={<DownOutlined />}>
+                    EN-VN
+                  </Button>
+                </Space>
+              </Dropdown>
+            )}
+            <Space size="small">
               <Dropdown
                 dropdownRender={() => (
                   <>

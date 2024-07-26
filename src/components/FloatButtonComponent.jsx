@@ -90,44 +90,39 @@ const FloatButtonComponent = () => {
 
   return (
     <>
-      <div>
-        <FloatButton.Group
-          trigger="hover"
+      <FloatButton.Group
+        trigger="hover"
+        type="primary"
+        style={{ right: 36 }}
+        icon={<CustomerServiceOutlined />}
+        className="your-animation-class-wrapper"
+        onClick={showChatboxModal}
+      >
+        <FloatButton
+          shape="circle"
+          badge={{
+            dot: true,
+          }}
           type="primary"
-          style={{ right: 36 }}
-          icon={<CustomerServiceOutlined />}
-          className="your-animation-class-wrapper"
-          onClick={showChatboxModal}
-        >
-          <FloatButton
-            shape="circle"
-            badge={{
-              dot: true,
-            }}
-            type="primary"
-            tooltip={<div>Notifications</div>}
-            icon={<NotificationOutlined />}
-            className="your-animation-class"
-          />
-          <FloatButton
-            shape="circle"
-            type="primary"
-            tooltip={<div>Messenger</div>}
-            icon={<FaFacebookMessenger />}
-            className="your-animation-class"
-          />
-          <FloatButton
-            type="primary"
-            tooltip={<div>Zalo</div>}
-            icon={<SiZalo />}
-            className="your-animation-class"
-          />
-        </FloatButton.Group>
-        <FloatButton.BackTop
-          visibilityHeight={100}
-          style={{ right: 36 + 70 }}
+          tooltip={<div>Notifications</div>}
+          icon={<NotificationOutlined />}
+          className="your-animation-class"
         />
-      </div>
+        <FloatButton
+          shape="circle"
+          type="primary"
+          tooltip={<div>Messenger</div>}
+          icon={<FaFacebookMessenger />}
+          className="your-animation-class"
+        />
+        <FloatButton
+          type="primary"
+          tooltip={<div>Zalo</div>}
+          icon={<SiZalo />}
+          className="your-animation-class"
+        />
+      </FloatButton.Group>
+      <FloatButton.BackTop visibilityHeight={100} style={{ right: 36 + 70 }} />
       <ConfigProvider
         theme={{
           token: {},
