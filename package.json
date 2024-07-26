@@ -15,6 +15,7 @@
     "axios": "^1.6.8",
     "ckeditor5-custom-build": "file:ckeditor5",
     "emoji-picker-react": "^4.9.2",
+    "firebase": "^10.12.4",
     "i18next": "^23.11.2",
     "i18next-http-backend": "^2.5.1",
     "moment": "^2.30.1",

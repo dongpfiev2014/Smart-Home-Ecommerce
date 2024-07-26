@@ -282,7 +282,7 @@ const CheckoutScreen = () => {
                   border: "none",
                   backgroundImage:
                     "linear-gradient(to right, #FB6F92 50%, #0073CF 50%)",
-                  backgroundSize: "150px 100%", // Độ rộng và chiều cao của mỗi vết đứt
+                  backgroundSize: "150px 100%",
                 }}
               />
               <Card
