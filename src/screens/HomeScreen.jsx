@@ -55,6 +55,7 @@ const HomeScreen = () => {
     "https://cdn.cookielaw.org/logos/e16fc3d8-3059-4c21-a04c-6ac0867610fc/535e8075-8ed1-4028-8d63-88102002b575/f40c1044-3f61-4257-ae90-ae4e4bb06333/STL-LOGO_4c_pos.jpg",
     "https://thietbihager.com/wp-content/uploads/2022/09/hager-worldwide-logo-vector.png",
   ];
+
   return (
     <>
       <Layout style={{ backgroundColor: mode ? "#001529" : "white" }}>
