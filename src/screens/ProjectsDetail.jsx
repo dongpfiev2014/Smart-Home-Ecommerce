@@ -18,6 +18,7 @@ import {
   InputNumber,
   Tabs,
   Form,
+  Grid,
 } from "antd";
 import {
   InstagramOutlined,
@@ -40,6 +41,7 @@ const ProjectsDetail = () => {
   const id = searchParams.get("id");
   const carouselRef = useRef(null);
   const [product, setProduct] = useState("");
+  const screens = Grid.useBreakpoint();
 
   useEffect(() => {
     if (id) {
@@ -53,21 +55,20 @@ const ProjectsDetail = () => {
 
   const contentStyle = {
     width: "100%",
-    height: "400px",
+    height: screens.xs ? "250px" : "400px",
     borderRadius: "15px",
     objectFit: "cover",
     overflow: "hidden",
   };
 
   const contentStyle2 = {
-    width: "100px",
-    height: "100px",
+    width: screens.xs ? "50px" : "100px",
+    height: screens.xs ? "50px" : "100px",
     borderRadius: "10px",
     objectFit: "cover",
     overflow: "hidden",
     cursor: "pointer",
   };
-
   const handleThumbnailClick = (index) => {
     carouselRef.current.goTo(index, false);
   };
@@ -80,10 +81,10 @@ const ProjectsDetail = () => {
         <>
           <div className="container">
             <Row>
-              <Col span={18}>
+              <Col span={screens.xs ? 12 : 18}>
                 <h6>Hãy là người đầu tiên chia sẻ trải nghiệm của mình!</h6>
               </Col>
-              <Col span={6}>
+              <Col span={screens.xs ? 12 : 6}>
                 <Flex justify="space-between">
                   <div>Đánh giá của bạn:</div>
                   <Rate />
@@ -185,14 +186,24 @@ const ProjectsDetail = () => {
             <div
               className="container"
               style={{
-                width: "1200px",
+                width: screens.xs ? "400px" : "1200px",
                 height: "100%",
                 backgroundColor: mode ? "#001529" : "white",
                 padding: "10px",
+                maxWidth: screens.xs ? "570px" : "100%",
               }}
             >
-              <Row gutter={25} style={{ padding: "5px" }}>
-                <Col span={12}>
+              <Row
+                gutter={15}
+                style={{
+                  padding: "10px",
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  width: "100%",
+                }}
+              >
+                <Col xs={24} sm={24} md={24} lg={12}>
                   <Flex vertical gap="small">
                     <Carousel ref={carouselRef}>
                       {product.images &&
@@ -281,11 +292,8 @@ const ProjectsDetail = () => {
                     </Flex>
                   </Flex>
                 </Col>
-                <Col
-                  span={12}
-                  className="d-flex flex-column justify-content-between"
-                >
-                  <Flex vertical gap={100}>
+                <Col xs={24} sm={24} md={24} lg={12}>
+                  <Flex vertical gap={screens.lg ? 100 : 20}>
                     <Space direction="vertical">
                       <Card bordered={false}>
                         <Typography.Title
@@ -314,18 +322,27 @@ const ProjectsDetail = () => {
                     </Space>
                   </Flex>
                   <Space style={{ width: "100%" }}>
-                    <Button type="primary" size="large" block>
+                    <Button type="primary" size="middle" block>
                       Gọi ngay 1900 0299
                     </Button>
-                    <Button type="primary" size="large" block>
+                    <Button type="primary" size="middle" block>
                       Yêu cầu tư vấn Miễn Phí
                     </Button>
                   </Space>
                 </Col>
               </Row>
               <Divider />
-              <Row gutter={5}>
-                <Col span={4}>
+              <Row
+                gutter={5}
+                style={
+                  screens.xs && {
+                    maxWidth: "570px",
+                    width: "370px",
+                    margin: "0 auto",
+                  }
+                }
+              >
+                <Col xs={12} sm={8} md={8} lg={8} xl={4} span={4}>
                   <Button
                     block
                     size="large"
@@ -336,7 +353,7 @@ const ProjectsDetail = () => {
                     Miễn phí Thiết Kế
                   </Button>
                 </Col>
-                <Col span={4}>
+                <Col xs={12} sm={8} md={8} lg={8} xl={4} span={4}>
                   <Button
                     block
                     size="large"
@@ -347,7 +364,7 @@ const ProjectsDetail = () => {
                     Miễn phí Lắp Đặt
                   </Button>
                 </Col>
-                <Col span={4}>
+                <Col xs={12} sm={8} md={8} lg={8} xl={4} span={4}>
                   <Button
                     block
                     size="large"
@@ -358,7 +375,7 @@ const ProjectsDetail = () => {
                     Miễn phí Cài Đặt
                   </Button>
                 </Col>
-                <Col span={4}>
+                <Col xs={12} sm={8} md={8} lg={8} xl={4} span={4}>
                   <Button
                     block
                     size="large"
@@ -369,7 +386,7 @@ const ProjectsDetail = () => {
                     Hướng dẫn Sử dụng
                   </Button>
                 </Col>
-                <Col span={4}>
+                <Col xs={12} sm={8} md={8} lg={8} xl={4} span={4}>
                   <Button
                     block
                     size="large"
@@ -380,7 +397,7 @@ const ProjectsDetail = () => {
                     Bảo hành 2 năm
                   </Button>
                 </Col>
-                <Col span={4}>
+                <Col xs={12} sm={8} md={8} lg={8} xl={4} span={4}>
                   <Button
                     block
                     size="large"
@@ -393,8 +410,16 @@ const ProjectsDetail = () => {
                 </Col>
               </Row>
               <Divider />
-              <Row>
-                <Col span={24}>
+              <Row
+                style={
+                  screens.xs && {
+                    maxWidth: "570px",
+                    width: "370px",
+                    margin: "0 auto",
+                  }
+                }
+              >
+                <Col xs={24} sm={24}>
                   <Tabs
                     items={items}
                     type="card"

@@ -1,12 +1,23 @@
 import React from "react";
 import { Helmet } from "react-helmet";
 import VideoLandingPage from "../components/LandingPage/VideoLandingPage";
-import { Layout, Space, Row, Col, Image, Flex, Button, Carousel } from "antd";
+import {
+  Layout,
+  Space,
+  Row,
+  Col,
+  Image,
+  Flex,
+  Button,
+  Carousel,
+  Grid,
+} from "antd";
 import MediaLandingPage from "../components/LandingPage/MediaLandingPage";
 import { useSelector } from "react-redux";
 
 const HomeScreen = () => {
   const { mode } = useSelector((state) => state.darkMode);
+  const screens = Grid.useBreakpoint();
   const images = [
     {
       title: "Vimar’s Eikon Exé presents the new Tondo control",
@@ -47,7 +58,7 @@ const HomeScreen = () => {
   return (
     <>
       <Layout style={{ backgroundColor: mode ? "#001529" : "white" }}>
-        <Space direction="vertical" size="large">
+        <Space direction="vertical" size={screens.lg ? "large" : "small"}>
           <VideoLandingPage />
           <MediaLandingPage
             src={`https://www.vimar.com/cache/images/content-card-full/w1440h0q75/archiproducts-1920x600jpg-hkc0qeot9a.webp`}
@@ -55,7 +66,7 @@ const HomeScreen = () => {
           <MediaLandingPage
             src={`https://www.vimar.com/cache/images/content-card-full/w1440h0q75/banner-linea-en-v2-1920x600-hn9dwg6i48.webp`}
           />
-          <Row gutter={[16, 16]} style={{ padding: "15px" }}>
+          <Row gutter={[10, 10]} style={{ padding: "10px" }}>
             <Col span={12}>
               <div
                 style={{
@@ -63,7 +74,7 @@ const HomeScreen = () => {
                   backgroundSize: "cover",
                   backgroundPosition: "center",
                   width: "100%",
-                  height: "400px",
+                  height: screens.lg ? "400px" : "150px",
                   display: "flex",
                   justifyContent: "center",
                   alignItems: "flex-start",
@@ -80,10 +91,10 @@ const HomeScreen = () => {
                     color: "white",
                   }}
                 >
-                  <Space>
+                  <Space direction={screens.xs ? "vertical" : "horizontal"}>
                     <Button
                       shape="round"
-                      size="large"
+                      size={screens.lg ? "large" : "small"}
                       type="primary"
                       style={{ fontFamily: '"Roboto Flex", sans-serif' }}
                     >
@@ -91,7 +102,7 @@ const HomeScreen = () => {
                     </Button>
                     <Button
                       shape="round"
-                      size="large"
+                      size={screens.lg ? "large" : "small"}
                       className="custom-button"
                       style={{
                         fontFamily: '"Roboto Flex", sans-serif',
@@ -100,7 +111,9 @@ const HomeScreen = () => {
                       Buy now
                     </Button>
                   </Space>
-                  <h1>Linea, unique line</h1>
+                  <h1 style={{ fontSize: screens.lg ? "60px" : "20px" }}>
+                    Linea, unique line
+                  </h1>
                 </Flex>
               </div>
             </Col>
@@ -111,7 +124,7 @@ const HomeScreen = () => {
                   backgroundSize: "cover",
                   backgroundPosition: "center",
                   width: "100%",
-                  height: "100%",
+                  height: screens.lg ? "400px" : "150px",
                   display: "flex",
                   justifyContent: "center",
                   alignItems: "flex-start",
@@ -128,10 +141,10 @@ const HomeScreen = () => {
                     color: "black",
                   }}
                 >
-                  <Space>
+                  <Space direction={screens.xs ? "vertical" : "horizontal"}>
                     <Button
                       shape="round"
-                      size="large"
+                      size={screens.lg ? "large" : "small"}
                       type="primary"
                       style={{ fontFamily: '"Roboto Flex", sans-serif' }}
                     >
@@ -139,7 +152,7 @@ const HomeScreen = () => {
                     </Button>
                     <Button
                       shape="round"
-                      size="large"
+                      size={screens.lg ? "large" : "small"}
                       className="custom-button"
                       style={{
                         fontFamily: '"Roboto Flex", sans-serif',
@@ -150,7 +163,9 @@ const HomeScreen = () => {
                       Buy now
                     </Button>
                   </Space>
-                  <h1>Tondo controls</h1>
+                  <h1 style={{ fontSize: screens.lg ? "60px" : "20px" }}>
+                    Tondo controls
+                  </h1>
                 </Flex>
               </div>
             </Col>
@@ -161,7 +176,7 @@ const HomeScreen = () => {
                   backgroundSize: "cover",
                   backgroundPosition: "center",
                   width: "100%",
-                  height: "400px",
+                  height: screens.lg ? "400px" : "150px",
                   display: "flex",
                   justifyContent: "center",
                   alignItems: "flex-start",
@@ -178,10 +193,10 @@ const HomeScreen = () => {
                     color: "black",
                   }}
                 >
-                  <Space>
+                  <Space direction={screens.xs ? "vertical" : "horizontal"}>
                     <Button
                       shape="round"
-                      size="large"
+                      size={screens.lg ? "large" : "small"}
                       type="primary"
                       style={{ fontFamily: '"Roboto Flex", sans-serif' }}
                     >
@@ -189,7 +204,7 @@ const HomeScreen = () => {
                     </Button>
                     <Button
                       shape="round"
-                      size="large"
+                      size={screens.lg ? "large" : "small"}
                       className="custom-button"
                       style={{
                         fontFamily: '"Roboto Flex", sans-serif',
@@ -210,7 +225,7 @@ const HomeScreen = () => {
                   backgroundSize: "cover",
                   backgroundPosition: "center",
                   width: "100%",
-                  height: "100%",
+                  height: screens.lg ? "400px" : "150px",
                   display: "flex",
                   justifyContent: "center",
                   alignItems: "flex-start",
@@ -227,10 +242,10 @@ const HomeScreen = () => {
                     color: "white",
                   }}
                 >
-                  <Space>
+                  <Space direction={screens.xs ? "vertical" : "horizontal"}>
                     <Button
                       shape="round"
-                      size="large"
+                      size={screens.lg ? "large" : "small"}
                       type="primary"
                       style={{ fontFamily: '"Roboto Flex", sans-serif' }}
                     >
@@ -238,7 +253,7 @@ const HomeScreen = () => {
                     </Button>
                     <Button
                       shape="round"
-                      size="large"
+                      size={screens.lg ? "large" : "small"}
                       className="custom-button"
                       style={{
                         fontFamily: '"Roboto Flex", sans-serif',
@@ -247,12 +262,14 @@ const HomeScreen = () => {
                       Buy now
                     </Button>
                   </Space>
-                  <h1>Dynamic</h1>
+                  <h1 style={{ fontSize: screens.lg ? "60px" : "20px" }}>
+                    Dynamic
+                  </h1>
                 </Flex>
               </div>
             </Col>
           </Row>
-          <div style={{ padding: "15px", cursor: "pointer" }}>
+          <div style={{ padding: "10px", cursor: "pointer" }}>
             <Carousel
               arrows
               dotPosition="left"
@@ -269,7 +286,10 @@ const HomeScreen = () => {
                   />
                   <h1
                     className="carousel-title"
-                    style={{ fontFamily: '"Roboto Flex", sans-serif' }}
+                    style={{
+                      fontFamily: '"Roboto Flex", sans-serif',
+                      fontSize: screens.lg ? "60px" : "16px",
+                    }}
                   >
                     {item.title}
                   </h1>
@@ -277,38 +297,41 @@ const HomeScreen = () => {
               ))}
             </Carousel>
           </div>
-          <div
-            style={{
-              overflow: "hidden",
-              width: "100%",
-            }}
-          >
-            <h1
+          {screens.lg && (
+            <div
               style={{
-                textAlign: "center",
-                fontFamily: '"Roboto Flex", sans-serif',
+                overflow: "hidden",
+                width: "100%",
               }}
             >
-              Our Partners
-            </h1>
-            <Flex
-              justify="center"
-              align="center"
-              className="image-carousel"
-              gap={30}
-            >
-              {partnerImages.map((imageUrl, index) => (
-                <Image
-                  key={index}
-                  src={imageUrl}
-                  alt={`Image ${index + 1}`}
-                  preview={false}
-                  width="150px"
-                  height="auto"
-                />
-              ))}
-            </Flex>
-          </div>
+              <h1
+                style={{
+                  textAlign: "center",
+                  fontFamily: '"Roboto Flex", sans-serif',
+                  fontSize: screens.lg ? "60px" : "20px",
+                }}
+              >
+                Our Partners
+              </h1>
+              <Flex
+                justify="center"
+                align="center"
+                className="image-carousel"
+                gap={30}
+              >
+                {partnerImages.map((imageUrl, index) => (
+                  <Image
+                    key={index}
+                    src={imageUrl}
+                    alt={`Image ${index + 1}`}
+                    preview={false}
+                    width="150px"
+                    height="auto"
+                  />
+                ))}
+              </Flex>
+            </div>
+          )}
         </Space>
       </Layout>
       <Helmet>

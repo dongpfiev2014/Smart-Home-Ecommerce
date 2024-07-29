@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Form, Input, Modal, Space, Typography } from "antd";
+import { Form, Grid, Input, Modal, Space, Typography } from "antd";
 import useLocalStorage from "use-local-storage";
 import ConfirmedSignupForm from "./ConfirmedSignupForm";
 
@@ -9,6 +9,8 @@ const NewsletterSignupForm = () => {
     "hasVisitedBefore",
     false
   );
+  const screens = Grid.useBreakpoint();
+
   useEffect(() => {
     if (!hasVisitedBefore) {
       const timer = setTimeout(() => {
@@ -34,7 +36,7 @@ const NewsletterSignupForm = () => {
       onOk={() => setShowSignupForm(false)}
       onCancel={() => setShowSignupForm(false)}
       footer={null}
-      width={800}
+      width={screens.md ? 800 : 400}
     >
       <div
         className="d-flex flex-column justify-content-center align-items-center"

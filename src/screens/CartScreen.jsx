@@ -11,6 +11,7 @@ import {
   Popconfirm,
   Affix,
   Checkbox,
+  Grid,
 } from "antd";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -52,6 +53,7 @@ const CartScreen = () => {
   const [checkedSelectAll, setCheckedSelectAll] = useState(false);
   const selectedRowKeys = useSelector((state) => state.selectedRowKeys);
   const [totalCost, setTotalCost] = useState(0);
+  const screens = Grid.useBreakpoint();
 
   useEffect(() => {
     const isEmptyProduct = product && product.length === 0;
@@ -151,7 +153,7 @@ const CartScreen = () => {
           <Space>
             <Image
               preview={false}
-              width={100}
+              width={screens.md ? 100 : 50}
               alt="logo"
               src={item.images[0]}
               style={{
@@ -170,7 +172,10 @@ const CartScreen = () => {
             <Typography.Paragraph
               ellipsis={{ rows: 2, expandable: false }}
               className="fw-medium"
-              style={{ maxWidth: "240px", cursor: "pointer" }}
+              style={{
+                maxWidth: screens.md ? "240px" : "200px",
+                cursor: "pointer",
+              }}
               onClick={() =>
                 navigate(
                   `/product-detail?id=${item.id}&name=${item.title}&code=${item.code}&brand=${item.brand}&series=${item.series}&category=${item.category}`
@@ -258,6 +263,7 @@ const CartScreen = () => {
   const PaymentBar = () => (
     <Affix offsetBottom={0} style={{ width: "100%" }}>
       <Flex
+        vertical={screens.xs ? true : false}
         justify="space-between"
         align="flex-end"
         style={{
@@ -301,7 +307,7 @@ const CartScreen = () => {
             </Button>
           </Popconfirm>
         </Space>
-        <Space size="middle" align="baseline">
+        <Space size={screens.xs ? "small" : "middle"} align="baseline">
           <Space size={5}>
             <div style={{ fontSize: "15px" }}>Total</div>
             <div style={{ fontSize: "15px", color: "red" }}>
@@ -309,11 +315,14 @@ const CartScreen = () => {
             </div>
             <div style={{ fontSize: "15px" }}>items: </div>
           </Space>
-          <Typography.Text style={{ fontSize: "20px", color: "red" }}>
+          <Typography.Text
+            style={{ fontSize: screens.xs ? "15px" : "20px", color: "red" }}
+          >
             {`${totalCost.toLocaleString()}đ`}
           </Typography.Text>
           <Button
             type="primary"
+            size={screens.xs ? "small" : "medium"}
             danger
             style={{ fontSize: "15px" }}
             onClick={() => {
@@ -382,6 +391,8 @@ const CartScreen = () => {
                 }}
                 columns={columns}
                 dataSource={data}
+                scroll={{ x: 900 }}
+                size="small"
               />
               <PaymentBar />
             </Row>

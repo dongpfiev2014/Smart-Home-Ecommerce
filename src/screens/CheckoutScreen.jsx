@@ -11,6 +11,7 @@ import {
   Col,
   Input,
   Select,
+  Grid,
 } from "antd";
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -108,6 +109,7 @@ const CheckoutScreen = () => {
   const dataSource = product.filter((item) =>
     selectedRowKeys.includes(item.id)
   );
+  // const screens = Grid.useBreakpoint();
 
   // Gọi hàm khi component được render
   useEffect(() => {
@@ -324,6 +326,8 @@ const CheckoutScreen = () => {
                   expandIcon: () => null,
                 }}
                 defaultExpandAllRows
+                scroll={{ x: 900 }}
+                size="small"
               />
 
               <Card

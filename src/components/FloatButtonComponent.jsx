@@ -14,6 +14,7 @@ import {
   Space,
   InputNumber,
   Typography,
+  Grid,
 } from "antd";
 import {
   NotificationOutlined,
@@ -42,6 +43,7 @@ const FloatButtonComponent = () => {
   const [isTyping, setIsTyping] = useState(false);
   const listRef = useRef(null);
   const inputRef = useRef(null);
+  const screens = Grid.useBreakpoint();
   // const [cursorPosition, setCursorPosition] = useState(0);
   // const [emoji, setEmoji] = useState("");
   // const [beforeCursor, setBeforeCursor] = useState("");
@@ -167,7 +169,7 @@ const FloatButtonComponent = () => {
           onCancel={closeChatboxModal}
           maskClosable={true}
           mask={false}
-          width={400}
+          width={screens.md ? 400 : 320}
           style={{
             position: "fixed",
             top: "20%",
@@ -232,7 +234,7 @@ const FloatButtonComponent = () => {
             className="bg-white rounded-4 p-1"
             style={{
               overflowY: "auto",
-              height: "40vh",
+              height: screens.md ? "40vh" : "30vh",
               maxHeight: "40vh",
             }}
             ref={listRef}
@@ -303,7 +305,7 @@ const FloatButtonComponent = () => {
           onCancel={() => setIsTyping(false)}
           maskClosable={true}
           mask={false}
-          width={400}
+          width={screens.md ? 400 : 320}
           style={{
             position: "fixed",
             top: "20%",

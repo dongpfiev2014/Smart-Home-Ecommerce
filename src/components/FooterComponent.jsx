@@ -46,7 +46,7 @@ const FooterComponent = () => {
             width: "1200px",
           }}
         >
-          <Flex justify="center" align="center" gap={5}>
+          <Flex justify="center" align="center" gap={0}>
             {screens.md && (
               <Card
                 style={{

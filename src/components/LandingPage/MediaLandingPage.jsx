@@ -1,16 +1,17 @@
 import React from "react";
-import { Image, Space, Flex, Button } from "antd";
+import { Image, Space, Flex, Button, Grid } from "antd";
 
 const MediaLandingPage = (props) => {
   const { src, title, content } = props;
+  const screens = Grid.useBreakpoint();
   return (
     <>
       <div
         className="position-relative d-flex justify-content-center"
         style={{
-          height: "60vh",
+          height: screens.lg ? "60vh" : "auto",
           width: "100%",
-          padding: "15px",
+          padding: "10px",
           // backgroundColor: "beige",
         }}
       >
@@ -22,7 +23,7 @@ const MediaLandingPage = (props) => {
             <Flex gap="middle" align="center" justify="center">
               <Button
                 shape="round"
-                size="large"
+                size={screens.lg ? "large" : "small"}
                 type="primary"
                 style={{ fontFamily: '"Roboto Flex", sans-serif' }}
               >
@@ -30,8 +31,8 @@ const MediaLandingPage = (props) => {
               </Button>
               <Button
                 shape="round"
-                size="large"
-                className="custom-button"
+                size={screens.lg ? "large" : "small"}
+                className={screens.lg ? "custom-button" : ""}
                 style={{ fontFamily: '"Roboto Flex", sans-serif' }}
               >
                 Buy now
