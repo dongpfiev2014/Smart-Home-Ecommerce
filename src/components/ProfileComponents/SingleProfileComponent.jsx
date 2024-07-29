@@ -6,6 +6,7 @@ import {
   Divider,
   Flex,
   Form,
+  Grid,
   Image,
   Input,
   Layout,
@@ -28,6 +29,7 @@ const SingleProfileComponent = () => {
   const [editingEmail, setEditingEmail] = useState(false);
   const [dateOfBirth, setDateOfBirth] = useState("");
   const { mode } = useSelector((state) => state.darkMode);
+  const screens = Grid.useBreakpoint();
 
   const onFinish = (value) => {
     const updatedUser = {
@@ -83,7 +85,7 @@ const SingleProfileComponent = () => {
         <Row>
           <Col span={24}>
             <Row>
-              <Col span={15}>
+              <Col xs={24} sm={24} md={15} span={15}>
                 <ConfigProvider
                   theme={{
                     components: {
@@ -98,7 +100,7 @@ const SingleProfileComponent = () => {
                   <Form
                     layout="horizontal"
                     labelCol={{
-                      span: 4,
+                      span: 8,
                     }}
                     wrapperCol={{
                       span: 16,
@@ -241,7 +243,7 @@ const SingleProfileComponent = () => {
                         format={dateFormat}
                       />
                     </Form.Item>
-                    <Form.Item wrapperCol={{ offset: 4, span: 16 }}>
+                    <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
                       <Button type="primary" htmlType="submit">
                         {t("Save")}
                       </Button>
@@ -249,9 +251,9 @@ const SingleProfileComponent = () => {
                   </Form>
                 </ConfigProvider>
               </Col>
-              <Col span={1}>
+              <Col xs={24} sm={24} md={1} span={1}>
                 <Divider
-                  type="vertical"
+                  type={screens.md ? "vertical" : "horizontal"}
                   style={{
                     height: "100%",
                     backgroundColor: mode
@@ -260,7 +262,7 @@ const SingleProfileComponent = () => {
                   }}
                 />
               </Col>
-              <Col span={8}>
+              <Col xs={24} sm={24} md={8} span={8}>
                 <Row justify="center" align="middle" style={{ height: "100%" }}>
                   <Flex vertical justify="center" align="center" gap="small">
                     <Image

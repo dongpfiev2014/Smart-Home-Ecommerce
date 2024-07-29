@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import { Row, Col, Flex, Menu } from "antd";
+import { Row, Col, Flex, Menu, Grid, Button, Drawer } from "antd";
 import Sider from "antd/es/layout/Sider";
 import { useSelector } from "react-redux";
 import { NavLink, Route, Routes } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { UserOutlined } from "@ant-design/icons";
+import { UserOutlined, MenuOutlined } from "@ant-design/icons";
 import { LuClipboardList } from "react-icons/lu";
 import { FcManager } from "react-icons/fc";
 import NotFoundScreen from "../screens/NotFoundScreen";
@@ -21,6 +21,8 @@ const ProfileScreen = () => {
   const { mode } = useSelector((state) => state.darkMode);
   const { t } = useTranslation();
   const auth = useSelector((state) => state.authen);
+  const screens = Grid.useBreakpoint();
+  const [drawerVisible, setDrawerVisible] = useState(false);
   const onClick = (val) => {
     setCurrent(val.key);
   };
@@ -138,6 +140,10 @@ const ProfileScreen = () => {
       ],
     },
   ];
+
+  const toggleDrawer = () => {
+    setDrawerVisible(!drawerVisible);
+  };
   return (
     <>
       {auth.currentUser ? (
@@ -155,27 +161,63 @@ const ProfileScreen = () => {
               backgroundColor: mode ? "#001529" : "white",
             }}
           >
-            <Col
-              span={4}
-              style={{ position: "fixed", width: "calc(1800px/6)" }}
-            >
-              <Flex justify="center" align="center">
-                <Sider>
-                  <Menu
-                    theme={mode ? "dark" : "light"}
-                    mode="inline"
-                    selectedKeys={[current]}
-                    items={items}
-                    onClick={onClick}
+            <Col xs={2} sm={4} span={4}>
+              {screens.lg ? (
+                <Flex justify="center" align="center">
+                  <Sider>
+                    <Menu
+                      theme={mode ? "dark" : "light"}
+                      mode="inline"
+                      selectedKeys={[current]}
+                      items={items}
+                      onClick={onClick}
+                      style={{
+                        height: "100%",
+                        borderRight: 0,
+                      }}
+                    />
+                  </Sider>
+                </Flex>
+              ) : (
+                <>
+                  <Button
+                    type="primary"
+                    icon={<MenuOutlined />}
+                    onClick={toggleDrawer}
                     style={{
-                      height: "100%",
-                      borderRight: 0,
+                      position: "fixed",
+                      zIndex: 1000,
+                      top: "120px",
+                      left: "5px",
                     }}
                   />
-                </Sider>
-              </Flex>
+                  <Drawer
+                    title="Navigation"
+                    placement="left"
+                    onClose={toggleDrawer}
+                    visible={drawerVisible}
+                    style={{ width: "300px", maxWidth: "300px" }}
+                  >
+                    <Flex justify="center" align="center">
+                      <Sider>
+                        <Menu
+                          theme={mode ? "dark" : "light"}
+                          mode="inline"
+                          selectedKeys={[current]}
+                          items={items}
+                          onClick={onClick}
+                          style={{
+                            height: "100%",
+                            borderRight: 0,
+                          }}
+                        />
+                      </Sider>
+                    </Flex>
+                  </Drawer>
+                </>
+              )}
             </Col>
-            <Col span={20} style={{ marginLeft: "calc(1800px/6)" }}>
+            <Col span={20}>
               <Routes>
                 <Route path="/profile" element={<SingleProfileComponent />} />
                 <Route path="/payment" element={<PaymentComponent />} />

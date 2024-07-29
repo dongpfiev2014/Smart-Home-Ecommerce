@@ -12,6 +12,7 @@ import {
   Divider,
   Flex,
   Modal,
+  Grid,
 } from "antd";
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -24,6 +25,7 @@ const PurchaseComponent = () => {
   const { myPurchase, ...rest } = (auth && auth.currentUser) || {};
   const dispatch = useDispatch();
   const [tabKey, setTabKey] = useState("");
+  const screens = Grid.useBreakpoint();
 
   const onChange = (key) => {
     setTabKey(key);
@@ -83,7 +85,7 @@ const PurchaseComponent = () => {
               avatar={
                 <Image
                   preview={false}
-                  width={150}
+                  width={screens.xs ? 100 : 150}
                   alt="logo"
                   src={item.images[0]}
                   style={{
@@ -100,16 +102,18 @@ const PurchaseComponent = () => {
                   <Flex justify="flex-start" gap={30}>
                     <div>x{item.amount}</div>
                     <Space>
-                      <Typography.Text
-                        style={{
-                          textDecoration: "line-through",
-                          color: "grey",
-                        }}
-                      >
-                        {`${parseInt(
-                          item.price * (Math.random() + 1)
-                        ).toLocaleString()}đ`}
-                      </Typography.Text>
+                      {screens.md && (
+                        <Typography.Text
+                          style={{
+                            textDecoration: "line-through",
+                            color: "grey",
+                          }}
+                        >
+                          {`${parseInt(
+                            item.price * (Math.random() + 1)
+                          ).toLocaleString()}đ`}
+                        </Typography.Text>
+                      )}
                       <Typography.Text type="danger">
                         {`${item.price.toLocaleString()}đ`}
                       </Typography.Text>
@@ -256,7 +260,7 @@ const PurchaseComponent = () => {
                 type="card"
                 size="middle"
                 tabBarGutter={5}
-                centered
+                centered={screens.lg ? true : false}
               />
             </Col>
           </Row>
