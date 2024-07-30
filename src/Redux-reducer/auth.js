@@ -1,26 +1,48 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
+import bcrypt from "bcryptjs";
 
 const initialState = {
   currentUser: undefined,
   isLoading: false,
+  success: false,
 };
 
 const API_USERS_URL = "https://6623cafa3e17a3ac8470401a.mockapi.io/api/users";
-const API_LOGIN_URL = "https://dummyjson.com/auth/login";
+const API_AUTHEN_URL = "https://6623cafa3e17a3ac8470401a.mockapi.io/api/authen";
 
 export const register = createAsyncThunk(
   "auth/register",
   async (userData, thunkAPI) => {
     try {
-      const token = fakeToken();
-      const response = await axios.post(API_USERS_URL, {
-        ...userData,
-        token: token,
-      });
-      return response.data;
+      const { username, password, email } = userData;
+
+      const allUser = await axios.get(API_AUTHEN_URL);
+      const userExist = allUser.data.find(
+        (user) => user.email === email || user.username === username
+      );
+
+      if (userExist === undefined) {
+        const salt = await bcrypt.genSalt(10);
+        const hashPassword = await bcrypt.hash(password, salt);
+        const responseAuthen = await axios.post(API_AUTHEN_URL, {
+          username,
+          password: hashPassword,
+          email,
+        });
+
+        const responseWithoutPass = { ...responseAuthen.data };
+        delete responseWithoutPass.password;
+
+        const token = fakeToken();
+        const responseUser = await axios.post(API_USERS_URL, {
+          ...responseWithoutPass,
+          token: token,
+        });
+        return responseUser.data;
+      }
     } catch (err) {
-      return thunkAPI.rejectWithValue(err.response.data.errors);
+      return thunkAPI.rejectWithValue(err);
     }
   }
 );
@@ -29,14 +51,25 @@ export const login = createAsyncThunk(
   "auth/login",
   async (userData, thunkAPI) => {
     try {
-      const response1 = await axios.post(API_LOGIN_URL, userData);
+      const url = new URL(API_AUTHEN_URL);
+      url.searchParams.append("username", userData.username);
+      const responseAuthen = await axios.get(url);
 
-      const newToken = response1.data.token;
-      const response2 = await axios.put(`${API_USERS_URL}/1`, {
-        token: newToken,
-      });
-      const response2Admin = { ...response2.data, role: "admin" };
-      return response2Admin;
+      if (responseAuthen.data.length === 1) {
+        const isMatch = await bcrypt.compare(
+          userData.password,
+          responseAuthen.data[0].password
+        );
+
+        if (isMatch) {
+          const token = fakeToken();
+          const responseUser = await axios.put(
+            `${API_USERS_URL}/${responseAuthen.data[0].id}`,
+            { token: token }
+          );
+          return responseUser.data;
+        }
+      }
     } catch (err) {
       return thunkAPI.rejectWithValue(err.response.data.errors);
     }
@@ -57,18 +90,6 @@ export const getCurrentUser = createAsyncThunk(
         },
       });
 
-      // const response2 = await fetch("https://dummyjson.com/auth/me", {
-      //   method: "GET",
-      //   headers: {
-      //     Authorization: `Bearer ${token}`,
-      //   },
-      // });
-      // const data1 = response1.data.find((user) => user.token === token);
-      // const data2 = await response2.json();
-      // if (data1) {
-      //   return data1;
-      // } else return data2;
-
       return response.data.find((user) => user.token === token);
     } catch (err) {
       return thunkAPI.rejectWithValue(
@@ -77,30 +98,6 @@ export const getCurrentUser = createAsyncThunk(
     }
   }
 );
-
-// export const getCurrentUser = createAsyncThunk(
-//   "auth/getCurrentUser",
-//   async (_, thunkAPI) => {
-//     try {
-//       const token = localStorage.getItem("accessToken") ?? "";
-//       if (!token) {
-//         throw new Error("Không tìm thấy token.");
-//       }
-//       const response = await fetch("https://dummyjson.com/auth/me", {
-//         method: "GET",
-//         headers: {
-//           Authorization: `Bearer ${token}`,
-//         },
-//       });
-//       const data = await response.json();
-//       return data;
-//     } catch (err) {
-//       return thunkAPI.rejectWithValue(
-//         err.response?.data?.errors || err.message
-//       );
-//     }
-//   }
-// );
 
 export const logout = createAsyncThunk("auth/logout", async () => {
   localStorage.removeItem("accessToken");
@@ -148,61 +145,73 @@ const authSlice = createSlice({
   extraReducers: (builder) => {
     builder.addCase(register.pending, (state) => {
       state.isLoading = true;
+      state.success = false;
     });
     builder.addCase(register.fulfilled, (state, action) => {
       state.isLoading = false;
       state.currentUser = action.payload;
-      // state.currentUser = action.meta.arg.username;
+      state.success = true;
     });
     builder.addCase(register.rejected, (state, action) => {
       state.isLoading = false;
+      state.success = false;
     });
 
     builder.addCase(login.pending, (state) => {
       state.isLoading = true;
+      state.success = false;
     });
     builder.addCase(login.fulfilled, (state, action) => {
       state.isLoading = false;
       state.currentUser = action.payload;
-      // state.currentUser = action.meta.arg.username;
+      state.success = true;
     });
     builder.addCase(login.rejected, (state, action) => {
       state.isLoading = false;
+      state.success = false;
     });
 
     builder.addCase(getCurrentUser.pending, (state) => {
       state.isLoading = true;
+      state.success = false;
     });
     builder.addCase(getCurrentUser.fulfilled, (state, action) => {
       state.isLoading = false;
-
       state.currentUser = action.payload;
+      state.success = true;
     });
     builder.addCase(getCurrentUser.rejected, (state, action) => {
       state.isLoading = false;
       state.currentUser = null;
+      state.success = false;
     });
     builder.addCase(updateUserProfile.pending, (state) => {
       state.isLoading = true;
+      state.success = false;
     });
     builder.addCase(updateUserProfile.fulfilled, (state, action) => {
       state.isLoading = false;
       state.currentUser = action.payload;
+      state.success = true;
     });
     builder.addCase(updateUserProfile.rejected, (state, action) => {
       state.isLoading = false;
       state.currentUser = null;
+      state.success = false;
     });
     builder.addCase(addToCart.pending, (state) => {
       state.isLoading = true;
+      state.success = false;
     });
     builder.addCase(addToCart.fulfilled, (state, action) => {
       state.isLoading = false;
       state.currentUser = action.payload;
+      state.success = true;
     });
     builder.addCase(addToCart.rejected, (state, action) => {
       state.isLoading = false;
       state.currentUser = null;
+      state.success = false;
     });
     builder.addCase(logout.fulfilled, (state, action) => {
       state.isLoading = false;

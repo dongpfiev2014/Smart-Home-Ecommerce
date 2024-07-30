@@ -13,6 +13,7 @@ import "../styles/GlobalStyles.css";
 import { useDispatch } from "react-redux";
 import { register } from "../Redux-reducer/auth";
 import Logo from "../photos/vecteezy_smart-home-logo-icon-template_20040705.svg";
+import { PasswordPatternRules } from "../lib/constant";
 
 const RegisterForm = () => {
   const [username, setUsername] = useState("");
@@ -24,11 +25,16 @@ const RegisterForm = () => {
   const dispatch = useDispatch();
 
   const onFinish = () => {
+    setShowError(false);
     if (password === confirmPassword) {
       dispatch(register({ username, password, email })).then((action) => {
-        localStorage.setItem("accessToken", action.payload.token);
-        navigate("/");
-        setShowError(false);
+        if (action.payload !== undefined && action.payload.type !== "error") {
+          localStorage.setItem("accessToken", action.payload.token);
+          navigate("/");
+          setShowError(false);
+        } else {
+          setShowError(true);
+        }
       });
     } else {
       setShowError(true);
@@ -140,15 +146,7 @@ const RegisterForm = () => {
             />
           </Form.Item>
 
-          <Form.Item
-            name="password"
-            rules={[
-              {
-                required: true,
-                message: "Please input your Password!",
-              },
-            ]}
-          >
+          <Form.Item name="password" rules={PasswordPatternRules} validateFirst>
             <Input.Password
               prefix={<LockOutlined />}
               type="password"
@@ -160,12 +158,8 @@ const RegisterForm = () => {
           </Form.Item>
           <Form.Item
             name="confirmPassword"
-            rules={[
-              {
-                required: true,
-                message: "Please input your Confirm Password!",
-              },
-            ]}
+            rules={PasswordPatternRules}
+            validateFirst
           >
             <Input.Password
               prefix={<LockOutlined />}
@@ -213,7 +207,7 @@ const RegisterForm = () => {
         {showError && (
           <Alert
             message="Error"
-            description="Passwords do not match."
+            description="Passwords do not match or Username/Email already exists ."
             type="error"
             showIcon
             closable

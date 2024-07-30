@@ -21,8 +21,9 @@ const LoginForm = () => {
   const dispatch = useDispatch();
 
   const onFinish = () => {
+    setShowError(false);
     dispatch(login({ username, password })).then((action) => {
-      if (action.payload) {
+      if (action.payload !== undefined) {
         localStorage.setItem("accessToken", action.payload.token);
         navigate("/");
         setShowError(false);
@@ -108,12 +109,17 @@ const LoginForm = () => {
             <span style={{ float: "right" }}>or</span>
           </Form.Item>
           <Form.Item className="d-flex justify-content-center align-items-center text-secondary">
-            <span>or you can sign in with </span>
+            <span>You can sign in with </span>
             <Space>
               <GoogleOutlined style={{ fontSize: "20px" }} />
               <FacebookOutlined style={{ fontSize: "20px" }} />
               <LinkedinOutlined style={{ fontSize: "20px" }} />
             </Space>
+            <div>
+              <span>or </span>
+              <div>Username: user1001</div>
+              <div>Password: Password123@</div>
+            </div>
           </Form.Item>
         </Form>
         {showError && (
