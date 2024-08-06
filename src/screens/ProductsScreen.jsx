@@ -320,7 +320,8 @@ const ProductsScreen = () => {
                     <Space
                       size="small"
                       style={{
-                        fontSize: "12px",
+                        fontSize: "11px",
+                        padding: "4px",
                       }}
                     >
                       <Rate
@@ -329,7 +330,7 @@ const ProductsScreen = () => {
                           Math.floor(Math.random() * (5 - 3 + 1)) + 3
                         }
                         style={{
-                          fontSize: "11px",
+                          fontSize: "10px",
                         }}
                       />
                       <div>{Math.floor(Math.random() * 50) + 1} sold</div>
