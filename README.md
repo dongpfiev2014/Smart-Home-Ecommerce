@@ -8,9 +8,7 @@
 - [Demo](#demo)
 - [Installation](#installation)
 - [Usage](#usage)
-- [API](#api)
-- [Contributing](#contributing)
-- [License](#license)
+- [Contact](#contact)
 
 ## Features
 
@@ -24,7 +22,7 @@
 
 Check out the live demo of the SmartHome Ecommerce website:
 
-[SmartHome Ecommerce Live Demo](#)
+[https://vimarsmarthome.netlify.app](https://vimarsmarthome.netlify.app)
 
 ## Installation
 
@@ -35,3 +33,24 @@ To get started with this project, follow these steps:
    git clone https://github.com/dongpfiev2014/Smart-Home-Ecommerce.git
    cd Smart-Home-Ecommerce
    ```
+2. Install the dependencies:
+   ```sh
+   npm install
+   ```
+
+## Usage
+
+To start the development server, run:
+
+```sh
+ npm start
+```
+
+This will start the application on http://localhost:3000.
+
+## Contact
+
+For any questions or suggestions, please reach out to:
+
+Name: Khổng Minh Đông
+Email: dongpfiev2014@gmail.com
