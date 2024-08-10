@@ -80,7 +80,7 @@ const ProjectsDetail = () => {
       children: (
         <>
           <div className="container">
-            <Row>
+            <Row gutter={(15, 15)}>
               <Col span={screens.xs ? 12 : 18}>
                 <h6>Hãy là người đầu tiên chia sẻ trải nghiệm của mình!</h6>
               </Col>
