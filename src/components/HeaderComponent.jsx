@@ -609,7 +609,7 @@ const HeaderComponent = () => {
                       <Card
                         hoverable
                         style={{
-                          minWidth: 500,
+                          minWidth: screens.xs ? 390 : 500,
                         }}
                         type="inner"
                       >
