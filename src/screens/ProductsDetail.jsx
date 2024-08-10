@@ -259,7 +259,7 @@ const ProductsDetail = () => {
                   padding: "10px",
                   display: "flex",
                   justifyContent: "center",
-                  alignItems: "center",
+                  alignItems: "flex-start",
                   width: "100%",
                 }}
               >
