@@ -1,13 +1,6 @@
 import React, { useState } from "react";
-import { Button, Form, Input, Space, Image, Alert } from "antd";
-import {
-  UserOutlined,
-  LockOutlined,
-  GoogleOutlined,
-  FacebookOutlined,
-  LinkedinOutlined,
-  MailOutlined,
-} from "@ant-design/icons";
+import { Button, Form, Input, Image, Alert, ConfigProvider } from "antd";
+import { UserOutlined, LockOutlined, MailOutlined } from "@ant-design/icons";
 import { Link, useNavigate } from "react-router-dom";
 import "../styles/GlobalStyles.css";
 import { useDispatch } from "react-redux";
@@ -122,88 +115,96 @@ const RegisterForm = () => {
           backgroundColor: "#ffffff",
         }}
       >
-        <Form
-          layout="vertical"
-          name="normal_login"
-          className="login-form"
-          onFinish={onFinish}
-          initialValues={{ remember: true }}
+        <ConfigProvider
+          theme={{
+            components: {
+              Form: {
+                marginLG: 12,
+              },
+            },
+          }}
         >
-          <Form.Item className="d-flex justify-content-center">
-            <Image src={Logo} width={120} preview={false} />
-          </Form.Item>
-          <Form.Item
-            name="username"
-            rules={[{ required: true, message: "Please input your Username!" }]}
+          <Form
+            layout="vertical"
+            name="normal_login"
+            className="login-form"
+            onFinish={onFinish}
+            initialValues={{ remember: true }}
           >
-            <Input
-              prefix={<UserOutlined />}
-              placeholder="Username"
-              allowClear
-              size="large"
-              onChange={(e) => setUsername(e.target.value)}
-              value={username}
-            />
-          </Form.Item>
+            <Form.Item className="d-flex justify-content-center">
+              <Image src={Logo} width={100} preview={false} />
+            </Form.Item>
+            <Form.Item
+              name="username"
+              rules={[
+                { required: true, message: "Please input your Username!" },
+              ]}
+            >
+              <Input
+                prefix={<UserOutlined />}
+                placeholder="Username"
+                allowClear
+                size="middle"
+                onChange={(e) => setUsername(e.target.value)}
+                value={username}
+              />
+            </Form.Item>
 
-          <Form.Item name="password" rules={PasswordPatternRules} validateFirst>
-            <Input.Password
-              prefix={<LockOutlined />}
-              type="password"
-              placeholder="Password"
-              size="large"
-              onChange={(e) => setPassword(e.target.value)}
-              value={password}
-            />
-          </Form.Item>
-          <Form.Item
-            name="confirmPassword"
-            rules={PasswordPatternRules}
-            validateFirst
-          >
-            <Input.Password
-              prefix={<LockOutlined />}
-              type="password"
-              placeholder="Confirm Password"
-              size="large"
-              onChange={(e) => setConfirmPassword(e.target.value)}
-              value={confirmPassword}
-            />
-          </Form.Item>
-          <Form.Item
-            name="email"
-            rules={[{ required: true, message: "Please input your email!" }]}
-          >
-            <Input
-              prefix={<MailOutlined />}
-              placeholder="E-mail Address"
-              allowClear
-              size="large"
-              type="email"
-              onChange={(e) => setEmail(e.target.value)}
-              value={email}
-            />
-          </Form.Item>
+            <Form.Item
+              name="password"
+              rules={PasswordPatternRules}
+              validateFirst
+            >
+              <Input.Password
+                prefix={<LockOutlined />}
+                type="password"
+                placeholder="Password"
+                size="middle"
+                onChange={(e) => setPassword(e.target.value)}
+                value={password}
+              />
+            </Form.Item>
+            <Form.Item
+              name="confirmPassword"
+              rules={PasswordPatternRules}
+              validateFirst
+            >
+              <Input.Password
+                prefix={<LockOutlined />}
+                type="password"
+                placeholder="Confirm Password"
+                size="middle"
+                onChange={(e) => setConfirmPassword(e.target.value)}
+                value={confirmPassword}
+              />
+            </Form.Item>
+            <Form.Item
+              name="email"
+              rules={[{ required: true, message: "Please input your email!" }]}
+            >
+              <Input
+                prefix={<MailOutlined />}
+                placeholder="E-mail Address"
+                allowClear
+                size="middle"
+                type="email"
+                onChange={(e) => setEmail(e.target.value)}
+                value={email}
+              />
+            </Form.Item>
 
-          <Form.Item>
-            <Button type="primary" htmlType="submit" className="w-100">
-              Sign Up
-            </Button>
-          </Form.Item>
+            <Form.Item>
+              <Button type="primary" htmlType="submit" className="w-100">
+                Sign Up
+              </Button>
+            </Form.Item>
 
-          <Form.Item className="d-flex justify-content-center align-items-center text-secondary">
-            <span>Have an acount? </span>
-            <Link to={"/accounts/login"}>Sign In</Link>
-          </Form.Item>
-          <Form.Item className="d-flex justify-content-center align-items-center text-secondary">
-            <span>or you can sign in with </span>
-            <Space>
-              <GoogleOutlined style={{ fontSize: "20px" }} />
-              <FacebookOutlined style={{ fontSize: "20px" }} />
-              <LinkedinOutlined style={{ fontSize: "20px" }} />
-            </Space>
-          </Form.Item>
-        </Form>
+            <Form.Item className="d-flex justify-content-center align-items-center text-secondary">
+              <span>Have an acount? </span>
+              <Link to={"/accounts/login"}>Sign In</Link>
+            </Form.Item>
+          </Form>
+        </ConfigProvider>
         {showError && (
           <Alert
             message="Error"
