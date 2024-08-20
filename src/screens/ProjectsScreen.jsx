@@ -38,6 +38,7 @@ const ProjectsScreen = () => {
   const { id } = params;
   const screens = Grid.useBreakpoint();
   const [drawerVisible, setDrawerVisible] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
 
   useEffect(() => {
     setActiveKeyTab(id);
@@ -60,6 +61,13 @@ const ProjectsScreen = () => {
       }
     });
   }, [dispatch]);
+
+  useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  }, [currentPage]);
 
   // Kiểm tra nếu products là một mảng hợp lệ trước khi sử dụng phương thức filter
   const filteredProducts =
@@ -142,6 +150,8 @@ const ProjectsScreen = () => {
             pageSize: 12,
             position: "bottom",
             align: "center",
+            current: currentPage,
+            onChange: (page) => setCurrentPage(page),
           }}
           grid={{ gutter: 10, xs: 1, sm: 2, md: 2, lg: 3, xl: 3, xxl: 3 }}
           dataSource={data}

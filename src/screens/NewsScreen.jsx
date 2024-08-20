@@ -22,6 +22,8 @@ const NewsScreen = () => {
   const params = useParams();
   const { id } = params;
   const screens = Grid.useBreakpoint();
+  const [currentPage, setCurrentPage] = useState(1);
+
   useEffect(() => {
     setActiveKeyTab(id);
   }, [id]);
@@ -35,6 +37,13 @@ const NewsScreen = () => {
       }
     });
   }, [dispatch]);
+
+  useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  }, [currentPage]);
 
   const items = [
     {
@@ -103,8 +112,12 @@ const NewsScreen = () => {
           loading={isLoading}
           pagination={{
             pageSize: 16,
+            position: "bottom",
+            align: "center",
+            current: currentPage,
+            onChange: (page) => setCurrentPage(page),
           }}
-          grid={{ gutter: 10, xs: 1, sm: 2, md: 3, lg: 4, xl: 5, xxl: 5 }}
+          grid={{ gutter: 10, xs: 1, sm: 2, md: 3, lg: 4, xl: 4, xxl: 4 }}
           dataSource={data}
           renderItem={(item) => (
             <List.Item key={item.id}>

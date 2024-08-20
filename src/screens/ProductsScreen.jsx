@@ -48,10 +48,28 @@ const ProductsScreen = () => {
   const [highToLowChecked, setHighToLowChecked] = useState(false);
   const screens = Grid.useBreakpoint();
   const [drawerVisible, setDrawerVisible] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+
+  useEffect(() => {
+    setIsLoading(true);
+    dispatch(getAllProducts()).then((action) => {
+      if (action.payload) {
+        setProducts(action.payload);
+        setIsLoading(false);
+      }
+    });
+  }, [dispatch]);
 
   useEffect(() => {
     setActiveKeyTab(id);
   }, [id]);
+
+  useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  }, [currentPage]);
 
   const handleLowToHighChange = (checked) => {
     setLowToHighChecked(checked);
@@ -82,16 +100,6 @@ const ProductsScreen = () => {
   const onClickFilter = (val) => {
     setCurrent(val.key);
   };
-
-  useEffect(() => {
-    setIsLoading(true);
-    dispatch(getAllProducts()).then((action) => {
-      if (action.payload) {
-        setProducts(action.payload);
-        setIsLoading(false);
-      }
-    });
-  }, [dispatch]);
 
   // Lọc products nếu có ít nhất một phần tử
   const filteredProducts =
@@ -286,6 +294,8 @@ const ProductsScreen = () => {
             pageSize: 20,
             position: "bottom",
             align: "center",
+            current: currentPage,
+            onChange: (page) => setCurrentPage(page),
           }}
           grid={{
             gutter: 10,
