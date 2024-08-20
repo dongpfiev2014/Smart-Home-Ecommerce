@@ -48,7 +48,11 @@ const PurchaseComponent = () => {
                 <Button
                   danger
                   type="primary"
-                  size="middle"
+                  size={
+                    screens.xs || (screens.sm && !screens.md)
+                      ? "small"
+                      : "middle"
+                  }
                   onClick={() =>
                     Modal.confirm({
                       title: "Cancel Order",
@@ -71,8 +75,7 @@ const PurchaseComponent = () => {
               <>
                 <Space split={<Divider type="vertical" />}>
                   <Typography.Text type="success">
-                    {item.orderStatus === "toShip" &&
-                      `Seller is preparing the order`}
+                    {item.orderStatus === "toShip" && `Order in preparation`}
                   </Typography.Text>
                   <Typography.Text type="danger">
                     {item.orderStatus.toUpperCase().replace("TO", "TO ").trim()}
@@ -85,7 +88,7 @@ const PurchaseComponent = () => {
               avatar={
                 <Image
                   preview={false}
-                  width={screens.xs ? 100 : 150}
+                  width={screens.xs || (screens.sm && !screens.md) ? 80 : 150}
                   alt="logo"
                   src={item.images[0]}
                   style={{
@@ -96,7 +99,18 @@ const PurchaseComponent = () => {
                   }}
                 />
               }
-              title={item.title}
+              title={
+                <>
+                  <h6
+                    style={{
+                      fontSize:
+                        screens.xs || (screens.sm && !screens.md) ? 14 : 16,
+                    }}
+                  >
+                    {item.title}
+                  </h6>
+                </>
+              }
               description={
                 <>
                   <Flex justify="flex-start" gap={30}>
